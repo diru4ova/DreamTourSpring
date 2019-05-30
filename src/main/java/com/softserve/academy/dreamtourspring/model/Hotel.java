@@ -39,6 +39,54 @@ public class Hotel {
         this.city = city;
     }
 
+    public int getIdHotel() {
+        return idHotel;
+    }
+
+    public void setIdHotel(int idHotel) {
+        this.idHotel = idHotel;
+    }
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public String getHotelDescription() {
+        return hotelDescription;
+    }
+
+    public void setHotelDescription(String hotelDescription) {
+        this.hotelDescription = hotelDescription;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -48,12 +96,12 @@ public class Hotel {
             return false;
         }
         Hotel hotel = (Hotel) o;
-        return idHotel == hotel.idHotel &&
-            stars == hotel.stars &&
-            Objects.equals(hotelName, hotel.hotelName) &&
-            Objects.equals(hotelDescription, hotel.hotelDescription) &&
-            Objects.equals(imageUrl, hotel.imageUrl) &&
-            Objects.equals(city, hotel.city);
+        return idHotel == hotel.idHotel
+            && stars == hotel.stars
+            && Objects.equals(hotelName, hotel.hotelName)
+            && Objects.equals(hotelDescription, hotel.hotelDescription)
+            && Objects.equals(imageUrl, hotel.imageUrl)
+            && Objects.equals(city, hotel.city);
     }
 
     @Override
@@ -72,4 +120,5 @@ public class Hotel {
             + ", city=" + city
             + '}';
     }
+
 }
