@@ -1,6 +1,5 @@
 package com.softserve.academy.dreamtourspring.dao.interfaces;
 
-import com.softserve.academy.dreamtour.entity.Visa;
 import com.softserve.academy.dreamtourspring.model.Visa;
 
 import javax.naming.NamingException;
