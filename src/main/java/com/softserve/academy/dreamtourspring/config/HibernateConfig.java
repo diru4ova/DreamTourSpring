@@ -1,5 +1,7 @@
 package com.softserve.academy.dreamtourspring.config;
 
+import com.softserve.academy.dreamtourspring.model.Person;
+import com.softserve.academy.dreamtourspring.model.Visa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import com.softserve.academy.dreamtourspring.model.User;
 
 @Configuration
 @EnableTransactionManagement
@@ -20,7 +21,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        factoryBean.setAnnotatedClasses(User.class);
+        factoryBean.setAnnotatedClasses(Person.class, Visa.class);
         return factoryBean;
     }
 
