@@ -1,9 +1,5 @@
 package com.softserve.academy.dreamtourspring.service.implementations;
 
-import com.softserve.academy.dreamtour.dao.implementations.PersonDaoImpl;
-import com.softserve.academy.dreamtour.dao.interfaces.IPersonDao;
-import com.softserve.academy.dreamtour.entity.Person;
-import com.softserve.academy.dreamtour.service.interfaces.IPersonService;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IPersonDao;
 import com.softserve.academy.dreamtourspring.model.Person;
 import com.softserve.academy.dreamtourspring.service.interfaces.IPersonService;
@@ -25,9 +21,9 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public boolean add(Person person) throws SQLException, NamingException {
+    public void add(Person person) throws SQLException, NamingException {
 
-        return personDao.add(person);
+        personDao.add(person);
     }
 
     @Override
@@ -37,20 +33,20 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     @Override
-    public boolean update(Person person) throws SQLException, NamingException {
+    public void update(Person person) throws SQLException, NamingException {
 
-        return personDao.update(person);
+        personDao.update(person);
     }
 
     @Override
-    public boolean delete(int id) throws SQLException, NamingException {
+    public void delete(int id) throws SQLException, NamingException {
 
-        return personDao.delete(id);
+        personDao.delete(id);
     }
-    
+
     public Person getPersonByCredentials(String username)
             throws SQLException, NamingException {
-        
+
         return personDao.getPersonByCredentials(username);
     }
 
