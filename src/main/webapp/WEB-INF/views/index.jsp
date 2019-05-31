@@ -4,12 +4,12 @@
 
 <head>
     <title>DreamTour</title>
-    <link href="resources/css/index.css" rel="stylesheet"/>
+    <link href="../../resources/css/index.css" rel="stylesheet"/>
 </head>
 
 <body>
 
-<jsp:include page="WEB-INF/components/header.jsp"/>
+<jsp:include page="../components/header.jsp"/>
 
 <div class="s002">
 
@@ -17,13 +17,12 @@
         <fieldset>
             <legend>You dream - we make</legend>
         </fieldset>
-        <jsp:include page="${pageContext.request.contextPath}/GetCountriesServlet"/>
         <div class="inner-form">
             <div class="input-field fouth-wrap">
                 <select id="countrySelection" name="chosenCountry">
                     <option value="allCountries">Choose Country</option>
                     <c:forEach var="country" items="${countries}">
-                        <option value="${country}"> ${country}</option>
+                        <option value="${country.countryName}"> ${country.countryName}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -63,8 +62,8 @@
         </div>
     </form>
 </div>
-<script src="resources/js/extention/choices.js"></script>
-<script src="resources/js/extention/flatpickr.js"></script>
+<script src="../../resources/js/extention/choices.js"></script>
+<script src="../../resources/js/extention/flatpickr.js"></script>
 <script>
     flatpickr(".datepicker", {});
 </script>
