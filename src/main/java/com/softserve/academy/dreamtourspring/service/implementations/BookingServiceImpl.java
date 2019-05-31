@@ -4,11 +4,13 @@ import com.softserve.academy.dreamtourspring.dao.interfaces.IBookingDao;
 import com.softserve.academy.dreamtourspring.model.Booking;
 import com.softserve.academy.dreamtourspring.service.interfaces.IBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class BookingServiceImpl implements IBookingService {
 
     @Autowired

@@ -4,11 +4,13 @@ import com.softserve.academy.dreamtourspring.dao.interfaces.IRoomDao;
 import com.softserve.academy.dreamtourspring.model.Room;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class RoomDaoImpl implements IRoomDao {
 
     @Autowired
