@@ -21,7 +21,8 @@ public class HibernateConfig {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
 
-        factoryBean.setAnnotatedClasses(Person.class, Visa.class, Country.class, City.class, Hotel.class, Room.class, Booking.class);
+        factoryBean.setAnnotatedClasses(Person.class, Visa.class, Country.class,
+                City.class, Hotel.class, Room.class, Booking.class);
 
         return factoryBean;
     }
