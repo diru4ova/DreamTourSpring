@@ -1,6 +1,7 @@
 package com.softserve.academy.dreamtourspring.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +15,9 @@ public class Country {
 
     @Column(name = "country_name")
     private String countryName;
+    @Column(name="id_city")
+    @OneToMany(mappedBy = "country")
+    private List<City> cityList;
 
     public Country() {
     }
@@ -29,6 +33,22 @@ public class Country {
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
+    }
+
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
+    }
+
+    public List<City> getCityList() {
+        return cityList;
+    }
+
+    public void setCityList(List<City> cityList) {
+        this.cityList = cityList;
     }
 
     @Override

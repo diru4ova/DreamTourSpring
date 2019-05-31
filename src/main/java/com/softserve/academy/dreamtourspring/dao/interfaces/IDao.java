@@ -8,12 +8,12 @@ public interface IDao<T> {
 
     List<T> getAll() throws SQLException, NamingException;
 
-    boolean add(T t) throws SQLException, NamingException; // C
+    void add(T t) throws SQLException, NamingException; // C
 
     T get(int id) throws SQLException, NamingException; // R
 
-    boolean update(T t) throws SQLException, NamingException; // U
+    void update(T t) throws SQLException, NamingException; // U
 
-    boolean delete(int id) throws SQLException, NamingException; // D
+    void delete(int id) throws SQLException, NamingException; // D
 
 }

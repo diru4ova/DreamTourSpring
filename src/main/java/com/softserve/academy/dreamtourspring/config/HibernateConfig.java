@@ -1,5 +1,7 @@
 package com.softserve.academy.dreamtourspring.config;
 
+import com.softserve.academy.dreamtourspring.model.City;
+import com.softserve.academy.dreamtourspring.model.Country;
 import com.softserve.academy.dreamtourspring.model.Person;
 import com.softserve.academy.dreamtourspring.model.Visa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        factoryBean.setAnnotatedClasses(Person.class, Visa.class);
+        factoryBean.setAnnotatedClasses(Person.class, Visa.class, Country.class, City.class);
         return factoryBean;
     }
 
