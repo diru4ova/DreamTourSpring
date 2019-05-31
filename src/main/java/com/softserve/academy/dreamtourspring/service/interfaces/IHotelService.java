@@ -10,13 +10,13 @@ public interface IHotelService {
 
     List<Hotel> getAll() throws SQLException, NamingException;
 
-    boolean add(Hotel hotel) throws SQLException, NamingException; // C
+    void add(Hotel hotel) throws SQLException, NamingException; // C
 
     Hotel get(int id) throws SQLException, NamingException; // R
 
-    boolean update(Hotel hotel) throws SQLException, NamingException; // U
+    void update(Hotel hotel) throws SQLException, NamingException; // U
 
-    boolean delete(int id) throws SQLException, NamingException; // D
+    void delete(int id) throws SQLException, NamingException; // D
 
     List<Hotel> getAllHotelsByCityName(String cityName) throws SQLException, NamingException;
 

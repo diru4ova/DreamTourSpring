@@ -30,7 +30,7 @@ public class HotelDaoImpl implements IHotelDao {
     }
 
     @Override
-    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, int cityId) throws SQLException, NamingException {
+    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) throws SQLException, NamingException {
         return null;
     }
 
