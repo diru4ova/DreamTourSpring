@@ -4,13 +4,14 @@ import com.softserve.academy.dreamtourspring.dao.interfaces.IVisaDao;
 import com.softserve.academy.dreamtourspring.model.Visa;
 import com.softserve.academy.dreamtourspring.service.interfaces.IVisaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
-
+@Service
 public class VisaServiceImpl implements IVisaService {
 
     @Autowired

@@ -5,8 +5,6 @@ import com.softserve.academy.dreamtourspring.model.Booking;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class BookingDaoImpl implements IBookingDao {
@@ -15,36 +13,36 @@ public class BookingDaoImpl implements IBookingDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Booking> getAllByPerson(int idPerson) throws SQLException, NamingException {
+    public List<Booking> getAllByPerson(int idPerson) {
         return null;
     }
 
     @Override
-    public List<Booking> getAll() throws SQLException, NamingException {
+    public List<Booking> getAll() {
 
         return sessionFactory.getCurrentSession().createQuery("from Booking").list();
     }
 
     @Override
-    public void add(Booking booking) throws SQLException, NamingException {
+    public void add(Booking booking) {
 
         sessionFactory.getCurrentSession().persist(booking);
     }
 
     @Override
-    public Booking get(int id) throws SQLException, NamingException {
+    public Booking get(int id) {
         
         return sessionFactory.getCurrentSession().get(Booking.class, id);
     }
 
     @Override
-    public void update(Booking booking) throws SQLException, NamingException {
+    public void update(Booking booking) {
 
         sessionFactory.getCurrentSession().update(booking);
     }
 
     @Override
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
 
         sessionFactory.getCurrentSession().delete(id);
     }

@@ -7,13 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.naming.NamingException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,12 +58,12 @@ public class CityDaoImpl implements ICityDao {
     }
 
     @Override
-    public List<String> getCityNameByCountry(String countryName) throws SQLException {
+    public List<String> getCityNameByCountry(String countryName) {
 
 
 
         ArrayList<String> cityList = new ArrayList<>();
-        String query = "SELECT city_name FROM city, country WHERE country.country_name=? AND city.id_country=country.id";
+       /* String query = "SELECT city_name FROM city, country WHERE country.country_name=? AND city.id_country=country.id";
         PreparedStatement statement = con.prepareStatement(query);
         statement.setString(1, countryName);
         ResultSet set = statement.executeQuery();
@@ -76,28 +71,28 @@ public class CityDaoImpl implements ICityDao {
             String cityName = set.getString("city_name");
             cityList.add(cityName);
         }
-        statement.close();
+        statement.close();*/
         return cityList;
     }
 
     @Override
-    public List<String> getAllCityNames() throws SQLException, NamingException {
+    public List<String> getAllCityNames() {
         ArrayList<String> cityList = new ArrayList<>();
-        String query = "SELECT city_name FROM city";
+        /*String query = "SELECT city_name FROM city";
         Statement statement = con.createStatement();
         ResultSet set = statement.executeQuery(query);
         while (set.next()) {
             String cityName = set.getString("city_name");
             cityList.add(cityName);
-        }
+        }*/
         return cityList;
     }
 
     @Override
-    public City getCityByName(String cityName) throws SQLException, NamingException {
+    public City getCityByName(String cityName) {
         String query = "SELECT * FROM city WHERE city_name = ?";
         City city = new City();
-        PreparedStatement statement = con.prepareStatement(query);
+        /*PreparedStatement statement = con.prepareStatement(query);
         statement.setString(1, cityName);
         ResultSet set = statement.executeQuery();
         while (set.next()) {
@@ -105,7 +100,7 @@ public class CityDaoImpl implements ICityDao {
             city.setCityName(set.getString("city_name"));
             city.setCountryId(set.getInt("id_country"));
         }
-        statement.close();
+        statement.close();*/
         return city;
     }
 }

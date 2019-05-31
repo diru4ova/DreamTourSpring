@@ -15,50 +15,50 @@ public class HotelDaoImpl implements IHotelDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Hotel> getAllHotelsByCityName(String cityName) throws SQLException, NamingException {
+    public List<Hotel> getAllHotelsByCityName(String cityName) {
         return null;
     }
 
     @Override
-    public int countTourist(String hotelName) throws SQLException, NamingException {
+    public int countTourist(String hotelName) {
         return 0;
     }
 
     @Override
-    public int averageStay(String hotelName) throws SQLException, NamingException {
+    public int averageStay(String hotelName) {
         return 0;
     }
 
     @Override
-    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) throws SQLException, NamingException {
+    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
         return null;
     }
 
     @Override
-    public List<Hotel> getAll() throws SQLException, NamingException {
+    public List<Hotel> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Hotel").list();
     }
 
     @Override
-    public void add(Hotel hotel) throws SQLException, NamingException {
+    public void add(Hotel hotel) {
         sessionFactory.getCurrentSession().persist(hotel);
     }
 
     @Override
-    public Hotel get(int id) throws SQLException, NamingException {
+    public Hotel get(int id) {
 
         return sessionFactory.getCurrentSession().get(Hotel.class, id);
 
     }
 
     @Override
-    public void update(Hotel hotel) throws SQLException, NamingException {
+    public void update(Hotel hotel) {
 
         sessionFactory.getCurrentSession().update(hotel);
     }
 
     @Override
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
 
         sessionFactory.getCurrentSession().delete(id);
     }
