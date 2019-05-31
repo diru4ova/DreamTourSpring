@@ -6,8 +6,6 @@ import com.softserve.academy.dreamtourspring.service.interfaces.IPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -17,37 +15,36 @@ public class PersonServiceImpl implements IPersonService {
     private IPersonDao personDao;
 
     @Override
-    public List<Person> getAll() throws SQLException, NamingException {
+    public List<Person> getAll() {
 
         return personDao.getAll();
     }
 
     @Override
-    public void add(Person person) throws SQLException, NamingException {
+    public void add(Person person) {
 
         personDao.add(person);
     }
 
     @Override
-    public Person get(int id) throws SQLException, NamingException {
+    public Person get(int id) {
 
         return personDao.get(id);
     }
 
     @Override
-    public void update(Person person) throws SQLException, NamingException {
+    public void update(Person person) {
 
         personDao.update(person);
     }
 
     @Override
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
 
         personDao.delete(id);
     }
 
-    public Person getPersonByCredentials(String username)
-            throws SQLException, NamingException {
+    public Person getPersonByCredentials(String username) {
 
         return personDao.getPersonByCredentials(username);
     }

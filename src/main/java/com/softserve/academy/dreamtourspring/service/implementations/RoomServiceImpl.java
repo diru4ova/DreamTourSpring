@@ -6,8 +6,6 @@ import com.softserve.academy.dreamtourspring.service.interfaces.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -17,32 +15,32 @@ public class RoomServiceImpl implements IRoomService {
     private IRoomDao roomDao;
 
     @Override
-    public List<Room> getAll() throws SQLException, NamingException {
+    public List<Room> getAll() {
         return roomDao.getAll();
     }
 
     @Override
-    public void add(Room room) throws SQLException, NamingException {
+    public void add(Room room) {
         roomDao.add(room);
     }
 
     @Override
-    public Room get(int id) throws SQLException, NamingException {
+    public Room get(int id) {
         return roomDao.get(id);
     }
 
     @Override
-    public void update(Room room) throws SQLException, NamingException {
+    public void update(Room room) {
         roomDao.update(room);
     }
 
     @Override
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
         roomDao.delete(id);
     }
 
     @Override
-    public List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel) throws SQLException, NamingException {
+    public List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel) {
         return roomDao.getFreeRoomsInHotel(startDate, endDate, idHotel);
     }
 }

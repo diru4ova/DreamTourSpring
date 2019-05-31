@@ -2,22 +2,20 @@ package com.softserve.academy.dreamtourspring.service.interfaces;
 
 import com.softserve.academy.dreamtourspring.model.Booking;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IBookingService {
 
-    List<Booking> getAll() throws SQLException, NamingException;
+    List<Booking> getAll();
 
-    void add(Booking booking) throws SQLException, NamingException; // C
+    void add(Booking booking); // C
 
-    Booking get(int id) throws SQLException, NamingException; // R
+    Booking get(int id); // R
 
-    void update(Booking booking) throws SQLException, NamingException; // U
+    void update(Booking booking); // U
 
-    void delete(int id) throws SQLException, NamingException; // D
+    void delete(int id); // D
 
-    List<Booking> getAllByPerson(int idPerson) throws SQLException, NamingException;
+    List<Booking> getAllByPerson(int idPerson);
 
 }

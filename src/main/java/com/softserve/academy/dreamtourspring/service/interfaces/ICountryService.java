@@ -2,24 +2,22 @@ package com.softserve.academy.dreamtourspring.service.interfaces;
 
 import com.softserve.academy.dreamtourspring.model.Country;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface ICountryService {
 
-    List<Country> getAll() throws SQLException, NamingException;
+    List<Country> getAll();
 
-    void add(Country country) throws SQLException, NamingException; // C
+    void add(Country country); // C
 
-    Country get(int id) throws SQLException, NamingException; // R
+    Country get(int id); // R
 
-    void update(Country country) throws SQLException, NamingException; // U
+    void update(Country country); // U
 
-    void delete(int id) throws SQLException, NamingException; // D
+    void delete(int id); // D
 
-    List<String> getCountryNameByPerson(int personId) throws SQLException;
+    List<String> getCountryNameByPerson(int personId);
 
-    List<String> getAllNames() throws SQLException;
+    List<String> getAllNames();
 
 }

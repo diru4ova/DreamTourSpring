@@ -2,29 +2,26 @@ package com.softserve.academy.dreamtourspring.service.interfaces;
 
 import com.softserve.academy.dreamtourspring.model.Hotel;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IHotelService {
 
-    List<Hotel> getAll() throws SQLException, NamingException;
+    List<Hotel> getAll();
 
-    void add(Hotel hotel) throws SQLException, NamingException; // C
+    void add(Hotel hotel); // C
 
-    Hotel get(int id) throws SQLException, NamingException; // R
+    Hotel get(int id); // R
 
-    void update(Hotel hotel) throws SQLException, NamingException; // U
+    void update(Hotel hotel); // U
 
-    void delete(int id) throws SQLException, NamingException; // D
+    void delete(int id); // D
 
-    List<Hotel> getAllHotelsByCityName(String cityName) throws SQLException, NamingException;
+    List<Hotel> getAllHotelsByCityName(String cityName);
 
-    int countTourist(String hotelName) throws SQLException, NamingException;
+    int countTourist(String hotelName);
 
-    int averageStay(String hotelName) throws SQLException, NamingException;
+    int averageStay(String hotelName);
 
-    List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName)
-        throws SQLException, NamingException;
+    List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName);
 
 }

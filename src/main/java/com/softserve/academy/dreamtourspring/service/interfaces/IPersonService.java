@@ -2,21 +2,19 @@ package com.softserve.academy.dreamtourspring.service.interfaces;
 
 import com.softserve.academy.dreamtourspring.model.Person;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IPersonService {
 
-    List<Person> getAll() throws SQLException, NamingException;
+    List<Person> getAll();
 
-    void add(Person person) throws SQLException, NamingException; // C
+    void add(Person person); // C
 
-    Person get(int id) throws SQLException, NamingException; // R
+    Person get(int id); // R
 
-    void update(Person person) throws SQLException, NamingException; // U
+    void update(Person person); // U
 
-    void delete(int id) throws SQLException, NamingException; // D
+    void delete(int id); // D
 
-    Person getPersonByCredentials(String username) throws SQLException, NamingException;
+    Person getPersonByCredentials(String username);
 }

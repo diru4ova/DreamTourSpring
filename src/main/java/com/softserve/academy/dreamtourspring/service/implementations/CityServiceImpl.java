@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -19,37 +17,37 @@ public class CityServiceImpl implements ICityService {
 
     @Override
     @Transactional (readOnly = true)
-    public List<City> getAll() throws SQLException, NamingException {
+    public List<City> getAll() {
         return dao.getAll();
     }
 
     @Override
     @Transactional
-    public void add(City city) throws SQLException, NamingException {
+    public void add(City city) {
         dao.add(city);
     }
 
     @Override
     @Transactional (readOnly = true)
-    public City get(int id) throws SQLException, NamingException {
+    public City get(int id) {
         return dao.get(id);
     }
 
     @Override
     @Transactional
-    public void update(City city) throws SQLException, NamingException {
+    public void update(City city) {
         dao.update(city);
     }
 
     @Override
     @Transactional
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
         dao.delete(id);
     }
 
     @Override
     @Transactional (readOnly = true)
-    public List<String> getCityNameByCountry(String countryName) throws SQLException, NamingException {
+    public List<String> getCityNameByCountry(String countryName) {
         return null;
     }
 }
