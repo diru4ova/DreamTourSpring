@@ -4,11 +4,11 @@ import com.softserve.academy.dreamtourspring.dao.interfaces.IHotelDao;
 import com.softserve.academy.dreamtourspring.model.Hotel;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class HotelDaoImpl implements IHotelDao {
 
     @Autowired

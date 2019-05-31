@@ -2,14 +2,15 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 
 import com.softserve.academy.dreamtourspring.dao.interfaces.ICityDao;
 import com.softserve.academy.dreamtourspring.model.City;
+import com.softserve.academy.dreamtourspring.model.Country;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -58,49 +59,31 @@ public class CityDaoImpl implements ICityDao {
     }
 
     @Override
-    public List<String> getCityNameByCountry(String countryName) {
+    public List<City> getCityNameByCountry(String countryName) {
 
-
-
-        ArrayList<String> cityList = new ArrayList<>();
-       /* String query = "SELECT city_name FROM city, country WHERE country.country_name=? AND city.id_country=country.id";
-        PreparedStatement statement = con.prepareStatement(query);
-        statement.setString(1, countryName);
-        ResultSet set = statement.executeQuery();
-        while (set.next()) {
-            String cityName = set.getString("city_name");
-            cityList.add(cityName);
-        }
-        statement.close();*/
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from Country where countryName=:name").setParameter("name", countryName);
+        Country country = (Country) query.uniqueResult();
+        List<City> cityList = country.getCityList();
         return cityList;
     }
 
     @Override
     public List<String> getAllCityNames() {
-        ArrayList<String> cityList = new ArrayList<>();
-        /*String query = "SELECT city_name FROM city";
-        Statement statement = con.createStatement();
-        ResultSet set = statement.executeQuery(query);
-        while (set.next()) {
-            String cityName = set.getString("city_name");
-            cityList.add(cityName);
-        }*/
-        return cityList;
+
+        List<City> cityList = getAll();
+        List<String> cityNames = null;
+        for (City city : cityList) {
+            cityNames.add(city.getCityName());
+        }
+        return cityNames;
     }
 
     @Override
     public City getCityByName(String cityName) {
-        String query = "SELECT * FROM city WHERE city_name = ?";
-        City city = new City();
-        /*PreparedStatement statement = con.prepareStatement(query);
-        statement.setString(1, cityName);
-        ResultSet set = statement.executeQuery();
-        while (set.next()) {
-            city.setCityId(set.getInt("id"));
-            city.setCityName(set.getString("city_name"));
-            city.setCountryId(set.getInt("id_country"));
-        }
-        statement.close();*/
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from City where cityName=:name").setParameter("name", cityName);
+        City city = (City) query.uniqueResult();
         return city;
     }
 }

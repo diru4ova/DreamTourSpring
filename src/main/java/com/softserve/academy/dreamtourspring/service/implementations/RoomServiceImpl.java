@@ -4,11 +4,13 @@ import com.softserve.academy.dreamtourspring.dao.interfaces.IRoomDao;
 import com.softserve.academy.dreamtourspring.model.Room;
 import com.softserve.academy.dreamtourspring.service.interfaces.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class RoomServiceImpl implements IRoomService {
 
     @Autowired
