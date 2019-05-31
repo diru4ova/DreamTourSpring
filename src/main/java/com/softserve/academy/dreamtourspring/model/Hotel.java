@@ -1,6 +1,7 @@
 package com.softserve.academy.dreamtourspring.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,9 @@ public class Hotel {
     @ManyToOne
     @JoinColumn(name = "id_city", referencedColumnName = "id")
     private City city;
+
+    @OneToMany(mappedBy = "hotel")
+    private List<Room> roomList;
 
     public Hotel() {
     }
@@ -87,6 +91,14 @@ public class Hotel {
         this.city = city;
     }
 
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -101,12 +113,13 @@ public class Hotel {
             && Objects.equals(hotelName, hotel.hotelName)
             && Objects.equals(hotelDescription, hotel.hotelDescription)
             && Objects.equals(imageUrl, hotel.imageUrl)
-            && Objects.equals(city, hotel.city);
+            && Objects.equals(city, hotel.city)
+            && Objects.equals(roomList, hotel.roomList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idHotel, hotelName, hotelDescription, imageUrl, stars, city);
+        return Objects.hash(idHotel, hotelName, hotelDescription, imageUrl, stars, city, roomList);
     }
 
     @Override
@@ -118,6 +131,7 @@ public class Hotel {
             + ", imageUrl='" + imageUrl + '\''
             + ", stars=" + stars
             + ", city=" + city
+            + ", roomList=" + roomList
             + '}';
     }
 
