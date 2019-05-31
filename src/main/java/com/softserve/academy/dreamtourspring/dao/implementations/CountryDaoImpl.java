@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,15 +70,13 @@ public class CountryDaoImpl implements ICountryDao {
     }
 
     @Override
-    public List<String> getAllNames() throws SQLException {
+    public List<String> getAllNames() {
 
         ArrayList<String> countryNameList = new ArrayList<>();
 
         /*String query = "SELECT country_name FROM country";
-
         Statement statement = con.createStatement();
         ResultSet rs = statement.executeQuery(query);
-
         while (rs.next()) {
             countryNameList.add(rs.getString("country_name"));
         }
