@@ -18,4 +18,8 @@ public interface ICityService {
 
     List<String> getCityNameByCountry(String countryName);
 
+    List<String> getAllCityNames();
+
+    City getCityByName(String cityName);
+
 }

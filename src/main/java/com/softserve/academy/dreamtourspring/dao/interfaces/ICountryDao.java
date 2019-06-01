@@ -10,4 +10,6 @@ public interface ICountryDao extends IDao<Country> {
 
     List<String> getAllNames();
 
+    Country getCountryByName (String countryName);
+
 }

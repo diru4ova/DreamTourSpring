@@ -48,12 +48,17 @@ public class CountryServiceImpl implements ICountryService {
     @Override
     @Transactional (readOnly = true)
     public List<String> getCountryNameByPerson(int personId) {
-        return null;
+        return dao.getCountryNameByPerson(personId);
     }
 
     @Override
     @Transactional (readOnly = true)
     public List<String> getAllNames() {
-        return null;
+        return dao.getAllNames();
+    }
+
+    @Override
+    public Country getCountryByName(String countryName) {
+        return dao.getCountryByName(countryName);
     }
 }
