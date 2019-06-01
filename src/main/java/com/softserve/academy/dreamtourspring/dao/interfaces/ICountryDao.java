@@ -8,7 +8,6 @@ public interface ICountryDao extends IDao<Country> {
 
     List<String> getCountryNameByPerson(int personId);
 
-
     List<String> getAllNames();
 
 }

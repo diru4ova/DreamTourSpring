@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="country")
+@Table(name = "country")
 public class Country {
 
     @Id
@@ -16,7 +16,7 @@ public class Country {
     @Column(name = "country_name")
     private String countryName;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
     private List<City> cityList;
 
     public Country() {

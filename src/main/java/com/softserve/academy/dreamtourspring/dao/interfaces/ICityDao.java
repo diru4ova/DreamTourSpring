@@ -8,8 +8,8 @@ public interface ICityDao extends IDao<City> {
 
     List<City> getCityNameByCountry(String countryName);
 
-    List <String> getAllCityNames();
+    List<String> getAllCityNames();
 
-    City getCityByName (String name);
+    City getCityByName(String name);
 
 }
