@@ -20,4 +20,6 @@ public interface ICountryService {
 
     List<String> getAllNames();
 
+    Country getCountryByName(String countryName);
+
 }
