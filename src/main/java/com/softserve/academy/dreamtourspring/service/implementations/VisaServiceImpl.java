@@ -5,11 +5,13 @@ import com.softserve.academy.dreamtourspring.model.Visa;
 import com.softserve.academy.dreamtourspring.service.interfaces.IVisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
+@Transactional
 public class VisaServiceImpl implements IVisaService {
 
     @Autowired
