@@ -6,12 +6,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
-@Transactional
 public class PersonDaoImpl implements IPersonDao {
 
     @Autowired
@@ -47,9 +45,11 @@ public class PersonDaoImpl implements IPersonDao {
     @Override
     public Person getPersonByCredentials(String username) {
 
-        Query query = sessionFactory.getCurrentSession()
-                .createQuery("from Person where username=:username", Person.class).setParameter("username", username);
-        List<Person> personList = query.getResultList();
+        Query<Person> query = sessionFactory.getCurrentSession()
+                .createQuery("from Person where username=:username")
+                .setParameter("username", username);
+
+        List<Person> personList = query.list();
         Person person = null;
         if(!personList.isEmpty()){
             // ignores multiple results

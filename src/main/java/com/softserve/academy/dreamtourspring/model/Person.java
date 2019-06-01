@@ -13,7 +13,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int idPerson;
+    private int id;
 
     @Column(name = "username")
     private String username;
@@ -21,12 +21,13 @@ public class Person {
     @Column(name = "pass")
     private String password;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "person_type")
     private PersonType personType;
 
@@ -36,11 +37,11 @@ public class Person {
     public Person() {
     }
 
-    public Person(int idPerson, String username,
+    public Person(int id, String username,
                   String password, String firstName,
                   String lastName, PersonType personType) {
 
-        this.idPerson = idPerson;
+        this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -59,12 +60,12 @@ public class Person {
     }
 
 
-    public int getIdPerson() {
-        return idPerson;
+    public int getId() {
+        return id;
     }
 
-    public void setIdPerson(int idPerson) {
-        this.idPerson = idPerson;
+    public void setIdPerson(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -128,7 +129,7 @@ public class Person {
 
         Person person = (Person) o;
 
-        return idPerson == person.idPerson
+        return id == person.id
                 && username.equals(person.username)
                 && password.equals(person.password)
                 && firstName.equals(person.firstName)
@@ -138,14 +139,14 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idPerson, username, password, firstName, lastName, personType);
+        return Objects.hash(id, username, password, firstName, lastName, personType);
     }
 
     @Override
     public String toString() {
 
         return "Person ["
-                + "idPerson=" + idPerson
+                + "id=" + id
                 + ", username=" + username
                 + ", firstName=" + firstName
                 + ", lastName=" + lastName

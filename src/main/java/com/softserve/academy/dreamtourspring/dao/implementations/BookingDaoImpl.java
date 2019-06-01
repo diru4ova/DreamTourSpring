@@ -18,10 +18,10 @@ public class BookingDaoImpl implements IBookingDao {
     @Override
     public List<Booking> getAllByPerson(int idPerson) {
 
-        Query query = sessionFactory.getCurrentSession()
-                .createQuery("from Booking where idPerson=:idPerson", Booking.class)
+        Query<Booking> query = sessionFactory.getCurrentSession()
+                .createQuery("from Booking where person.id=:idPerson")
                 .setParameter("idPerson", idPerson);
-        List<Booking> bookingList = query.getResultList();
+        List<Booking> bookingList = query.list();
 
         return bookingList;
     }
