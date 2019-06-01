@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-@Transactional
 public class VisaDaoImpl implements IVisaDao {
 
     @Autowired
@@ -53,11 +52,11 @@ public class VisaDaoImpl implements IVisaDao {
     @Override
     public List<Visa> getAllVisaByPerson(int idPerson) {
 
-       Query query = sessionFactory.getCurrentSession()
-               .createQuery("from Visa where id_tourist:=idPerson",Visa.class)
+       Query<Visa> query = sessionFactory.getCurrentSession()
+               .createQuery("from Visa where person.id=:idPerson")
                .setParameter("idPerson", idPerson);
 
-       List<Visa> visaList = query.getResultList();
+       List<Visa> visaList = query.list();
 
        return visaList;
     }
@@ -65,7 +64,7 @@ public class VisaDaoImpl implements IVisaDao {
     @Override
     public int getIdVisaByCountryByDate(int personId, int countryId, LocalDate endDate) {
         Query query = sessionFactory.getCurrentSession().createQuery("from Visa "
-            + "where Person.idPerson=:personId AND Country.countryId=:countryId"
+            + "where Person.id=:personId AND Country.countryId=:countryId"
             + " AND endDate=:endDate");
 
         query.setParameter("personId", personId);
@@ -74,6 +73,6 @@ public class VisaDaoImpl implements IVisaDao {
 
         Visa visa = (Visa)query.getSingleResult();
 
-        return visa.getIdVisa();
+        return visa.getId();
     }
 }
