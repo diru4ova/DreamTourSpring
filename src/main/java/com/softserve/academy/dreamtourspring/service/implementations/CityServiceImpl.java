@@ -48,6 +48,6 @@ public class CityServiceImpl implements ICityService {
     @Override
     @Transactional (readOnly = true)
     public List<String> getCityNameByCountry(String countryName) {
-        return null;
+        return dao.getCityNameByCountry(countryName);
     }
 }
