@@ -19,7 +19,7 @@ public class CityDaoImpl implements ICityDao {
     @Override
     public List<City> getAll() {
 
-        List <City> cityList = sessionFactory.getCurrentSession().createQuery("from City").list();
+        List<City> cityList = sessionFactory.getCurrentSession().createQuery("from City").list();
         return cityList;
     }
 
@@ -53,13 +53,15 @@ public class CityDaoImpl implements ICityDao {
                 .createQuery("SELECT city.cityName FROM City city, Country country WHERE country.countryName=:countryName" +
                         " AND city.country.countryId=country.id");
         query.setParameter("countryName", countryName);
-        List <City> cityList = query.list();
+        List<City> cityList = query.list();
+
         return cityList;
     }
 
     @Override
     public List<String> getAllCityNames() {
-        List <String> cityNames;
+
+        List<String> cityNames;
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("SELECT c.cityName FROM City c");
         cityNames = query.list();

@@ -6,8 +6,6 @@ import com.softserve.academy.dreamtourspring.service.interfaces.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -17,47 +15,47 @@ public class HotelServiceImpl implements IHotelService {
     private IHotelDao hotelDao;
 
     @Override
-    public List<Hotel> getAll() throws SQLException, NamingException {
+    public List<Hotel> getAll() {
         return hotelDao.getAll();
     }
 
     @Override
-    public void add(Hotel hotel) throws SQLException, NamingException {
+    public void add(Hotel hotel) {
         hotelDao.add(hotel);
     }
 
     @Override
-    public Hotel get(int id) throws SQLException, NamingException {
+    public Hotel get(int id) {
         return hotelDao.get(id);
     }
 
     @Override
-    public void update(Hotel hotel) throws SQLException, NamingException {
+    public void update(Hotel hotel) {
         hotelDao.update(hotel);
     }
 
     @Override
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
         hotelDao.delete(id);
     }
 
     @Override
-    public List<Hotel> getAllHotelsByCityName(String cityName) throws SQLException, NamingException {
+    public List<Hotel> getAllHotelsByCityName(String cityName) {
         return hotelDao.getAllHotelsByCityName(cityName);
     }
 
     @Override
-    public int countTourist(String hotelName) throws SQLException, NamingException {
+    public int countTourist(String hotelName) {
         return hotelDao.countTourist(hotelName);
     }
 
     @Override
-    public int averageStay(String hotelName) throws SQLException, NamingException {
+    public int averageStay(String hotelName) {
         return hotelDao.averageStay(hotelName);
     }
 
     @Override
-    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) throws SQLException, NamingException {
+    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
         return hotelDao.getAllAvailableHotelsInCity(startDate, endDate, cityName);
     }
 

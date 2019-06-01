@@ -1,65 +1,79 @@
 package com.softserve.academy.dreamtourspring.dao.implementations;
 
 import com.softserve.academy.dreamtourspring.dao.interfaces.IVisaDao;
-import com.softserve.academy.dreamtourspring.model.Person;
 import com.softserve.academy.dreamtourspring.model.Visa;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.naming.NamingException;
-import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
+@Transactional
 public class VisaDaoImpl implements IVisaDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<Visa> getAll() throws SQLException, NamingException {
+    public List<Visa> getAll() {
 
         return sessionFactory.getCurrentSession().createQuery("from Visa").list();
     }
 
     @Override
-    public int getVisaCountByCountryForPerson(String countryName, int idPerson) throws SQLException, NamingException { ;
+    public int getVisaCountByCountryForPerson(String countryName, int idPerson) {
 
         return 0;
     }
 
-    public void add(Visa visa) throws SQLException, NamingException {
+    public void add(Visa visa) {
 
         sessionFactory.getCurrentSession().persist(visa);
     }
 
-    public Visa get(int id) throws SQLException, NamingException {
+    public Visa get(int id) {
 
         return sessionFactory.getCurrentSession().get(Visa.class, id);
     }
 
-    public void update(Visa visa) throws SQLException, NamingException {
+    public void update(Visa visa) {
 
         sessionFactory.getCurrentSession().update(visa);
     }
 
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
 
         sessionFactory.getCurrentSession().remove(id);
     }
 
     @Override
-    public List<Visa> getAllVisaByPerson(int idPerson) throws SQLException, NamingException {
+    public List<Visa> getAllVisaByPerson(int idPerson) {
 
-       return new ArrayList<>();
+       Query query = sessionFactory.getCurrentSession()
+               .createQuery("from Visa where id_tourist:=idPerson",Visa.class)
+               .setParameter("idPerson", idPerson);
 
+       List<Visa> visaList = query.getResultList();
+
+       return visaList;
     }
 
     @Override
-    public int getIdVisaByCountryByDate(int personId, int countryId, LocalDate endDate)
-            throws SQLException, NamingException {
+    public int getIdVisaByCountryByDate(int personId, int countryId, LocalDate endDate) {
+        Query query = sessionFactory.getCurrentSession().createQuery("from Visa "
+            + "where Person.idPerson=:personId AND Country.countryId=:countryId"
+            + " AND endDate=:endDate");
 
-        return 0;
+        query.setParameter("personId", personId);
+        query.setParameter("countryId", countryId);
+        query.setParameter("endDate", endDate);
+
+        Visa visa = (Visa)query.getSingleResult();
+
+        return visa.getIdVisa();
     }
 }

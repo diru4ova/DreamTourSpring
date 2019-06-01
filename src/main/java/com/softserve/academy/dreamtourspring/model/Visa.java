@@ -32,8 +32,38 @@ public class Visa {
         this.person = person;
         this.country = country;
     }
-    
 
+    public int getIdVisa() {
+        return idVisa;
+    }
+
+    public void setIdVisa(int idVisa) {
+        this.idVisa = idVisa;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 
     @Override
     public boolean equals(Object o) {

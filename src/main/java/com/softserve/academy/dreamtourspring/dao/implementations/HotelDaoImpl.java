@@ -3,11 +3,10 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IHotelDao;
 import com.softserve.academy.dreamtourspring.model.Hotel;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -17,50 +16,53 @@ public class HotelDaoImpl implements IHotelDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Hotel> getAllHotelsByCityName(String cityName) throws SQLException, NamingException {
-        return null;
+    public List<Hotel> getAllHotelsByCityName(String cityName) {
+        Query query = sessionFactory.getCurrentSession().createQuery("from Hotel where city ="
+            + " (from City where cityName = :cityName)");
+        query.setParameter("cityName", cityName);
+        List hotelList = query.list();
+        return hotelList;
     }
 
     @Override
-    public int countTourist(String hotelName) throws SQLException, NamingException {
+    public int countTourist(String hotelName) {
         return 0;
     }
 
     @Override
-    public int averageStay(String hotelName) throws SQLException, NamingException {
+    public int averageStay(String hotelName) {
         return 0;
     }
 
     @Override
-    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) throws SQLException, NamingException {
+    public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
         return null;
     }
 
     @Override
-    public List<Hotel> getAll() throws SQLException, NamingException {
+    public List<Hotel> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Hotel").list();
     }
 
     @Override
-    public void add(Hotel hotel) throws SQLException, NamingException {
+    public void add(Hotel hotel) {
         sessionFactory.getCurrentSession().persist(hotel);
     }
 
     @Override
-    public Hotel get(int id) throws SQLException, NamingException {
+    public Hotel get(int id) {
 
         return sessionFactory.getCurrentSession().get(Hotel.class, id);
-
     }
 
     @Override
-    public void update(Hotel hotel) throws SQLException, NamingException {
+    public void update(Hotel hotel) {
 
         sessionFactory.getCurrentSession().update(hotel);
     }
 
     @Override
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
 
         sessionFactory.getCurrentSession().delete(id);
     }

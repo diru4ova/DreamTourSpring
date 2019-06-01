@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -20,35 +18,43 @@ public class PersonDaoImpl implements IPersonDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Person> getAll() throws SQLException, NamingException {
+    public List<Person> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Person").list();
     }
 
     @Override
-    public void add(Person person) throws SQLException, NamingException {
+    public void add(Person person) {
         sessionFactory.getCurrentSession().persist(person);
     }
 
     @Override
-    public Person get(int id) throws SQLException, NamingException {
+    public Person get(int id) {
         return sessionFactory.getCurrentSession().get(Person.class, id);
     }
 
     @Override
-    public void update(Person person) throws SQLException, NamingException {
+    public void update(Person person) {
 
         sessionFactory.getCurrentSession().update(person);
     }
 
     @Override
-    public void delete(int id) throws SQLException, NamingException {
+    public void delete(int id) {
 
         sessionFactory.getCurrentSession().remove(id);
     }
 
     @Override
-    public Person getPersonByCredentials(String username) throws SQLException, NamingException {
+    public Person getPersonByCredentials(String username) {
 
-        return null;
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from Person where username=:username", Person.class).setParameter("username", username);
+        List<Person> personList = query.getResultList();
+        Person person = null;
+        if(!personList.isEmpty()){
+            // ignores multiple results
+            person = personList.get(0);
+        }
+        return person;
     }
 }

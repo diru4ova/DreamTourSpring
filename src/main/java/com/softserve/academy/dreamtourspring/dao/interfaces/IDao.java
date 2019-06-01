@@ -1,19 +1,17 @@
 package com.softserve.academy.dreamtourspring.dao.interfaces;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IDao<T> {
 
-    List<T> getAll() throws SQLException, NamingException;
+    List<T> getAll();
 
-    void add(T t) throws SQLException, NamingException; // C
+    void add(T t); // C
 
-    T get(int id) throws SQLException, NamingException; // R
+    T get(int id); // R
 
-    void update(T t) throws SQLException, NamingException; // U
+    void update(T t); // U
 
-    void delete(int id) throws SQLException, NamingException; // D
+    void delete(int id); // D
 
 }

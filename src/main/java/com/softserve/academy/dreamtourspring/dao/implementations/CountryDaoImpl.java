@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import java.sql.SQLException;
+
 import java.util.List;
 
 @Repository
@@ -19,13 +19,7 @@ public class CountryDaoImpl implements ICountryDao {
     @Override
     public List<Country> getAll() {
 
-        /*CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<Country> criteria = builder.createQuery(Country.class);
-        criteria.from(Country.class);
-        List<Country> countryList = sessionFactory.getCurrentSession().createQuery(criteria).getResultList();*/
-
-        List<Country> countryList = sessionFactory.getCurrentSession().createQuery("from City").list();
-
+        List<Country> countryList = sessionFactory.getCurrentSession().createQuery("from Country").list();
         return countryList;
     }
 
@@ -52,9 +46,10 @@ public class CountryDaoImpl implements ICountryDao {
 
     @Override
     public List<String> getCountryNameByPerson(int personId) {
+
         List<String> countryList;
         Query query = sessionFactory.getCurrentSession().createQuery("select c.countryName "
-                 + "from Country c, Booking b where b.country.countryId=c.countryId and b.person =:personId");
+                + "from Country c, Booking b where b.country.countryId=c.countryId and b.person =:personId");
         query.setParameter("personId", personId);
         countryList = query.list();
         return countryList;
@@ -63,9 +58,9 @@ public class CountryDaoImpl implements ICountryDao {
     @Override
     public List<String> getAllNames() {
 
-        List<String> countryNameList;
-        Query query = sessionFactory.getCurrentSession().createQuery("SELECT c.countryName FROM Country c");
-        countryNameList = query.list();
+        String hql = "select countryName from Country";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql, String.class);
+        List<String> countryNameList = query.getResultList();
         return countryNameList;
     }
 

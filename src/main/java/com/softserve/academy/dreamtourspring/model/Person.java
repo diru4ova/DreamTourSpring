@@ -3,6 +3,7 @@ package com.softserve.academy.dreamtourspring.model;
 import com.softserve.academy.dreamtourspring.enums.PersonType;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -10,30 +11,34 @@ import java.util.Objects;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int idPerson;
 
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name="pass")
+    @Column(name = "pass")
     private String password;
 
-    @Column(name="firstName")
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(name="lastName")
+    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name="person_type")
+    @Column(name = "person_type")
     private PersonType personType;
-    
-    public Person() { }
+
+    @OneToMany(mappedBy = "person")
+    private List<Visa> visaList;
+
+    public Person() {
+    }
 
     public Person(int idPerson, String username,
-            String password, String firstName,
-            String lastName, PersonType personType) {
+                  String password, String firstName,
+                  String lastName, PersonType personType) {
 
         this.idPerson = idPerson;
         this.username = username;
@@ -42,9 +47,9 @@ public class Person {
         this.lastName = lastName;
         this.personType = personType;
     }
-    
+
     public Person(String username, String password, String firstName,
-            String lastName, PersonType personType) {
+                  String lastName, PersonType personType) {
 
         this.username = username;
         this.password = password;
@@ -102,25 +107,33 @@ public class Person {
         this.personType = personType;
     }
 
+    public List<Visa> getVisaList() {
+        return visaList;
+    }
+
+    public void setVisaList(List<Visa> visaList) {
+        this.visaList = visaList;
+    }
+
     @Override
     public boolean equals(Object o) {
-        
+
         if (this == o) {
             return true;
         }
-        
+
         if (!(o instanceof Person)) {
             return false;
         }
-        
+
         Person person = (Person) o;
-        
+
         return idPerson == person.idPerson
-            && username.equals(person.username)
-            && password.equals(person.password)
-            && firstName.equals(person.firstName)
-            && lastName.equals(person.lastName)
-            && personType == person.personType;
+                && username.equals(person.username)
+                && password.equals(person.password)
+                && firstName.equals(person.firstName)
+                && lastName.equals(person.lastName)
+                && personType == person.personType;
     }
 
     @Override
@@ -130,14 +143,14 @@ public class Person {
 
     @Override
     public String toString() {
-        
-        return "Person [" 
-                + "idPerson=" + idPerson 
-                + ", username=" + username 
-                + ", firstName=" + firstName 
-                + ", lastName=" + lastName 
-                + ", personType=" + personType 
+
+        return "Person ["
+                + "idPerson=" + idPerson
+                + ", username=" + username
+                + ", firstName=" + firstName
+                + ", lastName=" + lastName
+                + ", personType=" + personType
                 + "]";
     }
-    
+
 }

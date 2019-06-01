@@ -2,22 +2,20 @@ package com.softserve.academy.dreamtourspring.service.interfaces;
 
 import com.softserve.academy.dreamtourspring.model.City;
 
-import javax.naming.NamingException;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface ICityService {
 
-    List<City> getAll() throws SQLException, NamingException;
+    List<City> getAll();
 
-    void add(City city) throws SQLException, NamingException; // C
+    void add(City city); // C
 
-    City get(int id) throws SQLException, NamingException; // R
+    City get(int id); // R
 
-    void update(City city) throws SQLException, NamingException; // U
+    void update(City city); // U
 
-    void delete(int id) throws SQLException, NamingException; // D
+    void delete(int id); // D
 
-    List<String> getCityNameByCountry(String countryName) throws SQLException, NamingException;
+    List<String> getCityNameByCountry(String countryName);
 
 }
