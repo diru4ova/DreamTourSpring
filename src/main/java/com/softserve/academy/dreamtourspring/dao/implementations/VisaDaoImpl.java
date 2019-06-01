@@ -53,8 +53,13 @@ public class VisaDaoImpl implements IVisaDao {
     @Override
     public List<Visa> getAllVisaByPerson(int idPerson) {
 
-       return new ArrayList<>();
+       Query query = sessionFactory.getCurrentSession()
+               .createQuery("from Visa where id_tourist:=idPerson",Visa.class)
+               .setParameter("idPerson", idPerson);
 
+       List<Visa> visaList = query.getResultList();
+
+       return visaList;
     }
 
     @Override

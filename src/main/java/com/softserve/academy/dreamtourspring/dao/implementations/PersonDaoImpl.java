@@ -3,6 +3,7 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IPersonDao;
 import com.softserve.academy.dreamtourspring.model.Person;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +47,14 @@ public class PersonDaoImpl implements IPersonDao {
     @Override
     public Person getPersonByCredentials(String username) {
 
-        return null;
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from Person where username=:username", Person.class).setParameter("username", username);
+        List<Person> personList = query.getResultList();
+        Person person = null;
+        if(!personList.isEmpty()){
+            // ignores multiple results
+            person = personList.get(0);
+        }
+        return person;
     }
 }

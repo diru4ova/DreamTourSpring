@@ -72,15 +72,10 @@ public class CountryDaoImpl implements ICountryDao {
     @Override
     public List<String> getAllNames() {
 
-        ArrayList<String> countryNameList = new ArrayList<>();
+        String hql = "select countryName from Country";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql,String.class);
 
-        /*String query = "SELECT country_name FROM country";
-        Statement statement = con.createStatement();
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-            countryNameList.add(rs.getString("country_name"));
-        }
-        statement.close();*/
+        List<String> countryNameList = query.getResultList();
 
         return countryNameList;
     }

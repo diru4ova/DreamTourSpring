@@ -3,6 +3,7 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IBookingDao;
 import com.softserve.academy.dreamtourspring.model.Booking;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,13 @@ public class BookingDaoImpl implements IBookingDao {
 
     @Override
     public List<Booking> getAllByPerson(int idPerson) {
-        return null;
+
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from Booking where idPerson=:idPerson", Booking.class)
+                .setParameter("idPerson", idPerson);
+        List<Booking> bookingList = query.getResultList();
+
+        return bookingList;
     }
 
     @Override
