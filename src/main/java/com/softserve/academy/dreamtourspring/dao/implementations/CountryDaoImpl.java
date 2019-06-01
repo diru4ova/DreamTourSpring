@@ -7,14 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -26,13 +19,13 @@ public class CountryDaoImpl implements ICountryDao {
     @Override
     public List<Country> getAll() {
 
-        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
+        /*CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
         CriteriaQuery<Country> criteria = builder.createQuery(Country.class);
         criteria.from(Country.class);
-        List<Country> countryList = sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
+        List<Country> countryList = sessionFactory.getCurrentSession().createQuery(criteria).getResultList();*/
 
-/*        List<City> cityList = sessionFactory.getCurrentSession().createQuery("SELECT c FROM city c", City.class).getResultList();
-        sessionFactory.getCurrentSession().createQuery("from City").list();*/
+        List<Country> countryList = sessionFactory.getCurrentSession().createQuery("from City").list();
+
         return countryList;
     }
 
@@ -55,39 +48,24 @@ public class CountryDaoImpl implements ICountryDao {
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(session.get(Country.class, id));
-        //session.remove(id);
     }
 
     @Override
-    public List<String> getCountryNameByPerson(int personId) throws SQLException {
-        ArrayList<String> countryList = new ArrayList<>();
-        String query = "select country.country_name \n" + "from country, booking \n"
-                + "where booking.id_country=country.id and booking.id_tourist =?";
-        PreparedStatement statement = con.prepareStatement(query);
-        statement.setInt(1, personId);
-        ResultSet set = statement.executeQuery();
-        while (set.next()) {
-            String countryName = set.getString("country_name");
-            countryList.add(countryName);
-        }
+    public List<String> getCountryNameByPerson(int personId) {
+        List<String> countryList;
+        Query query = sessionFactory.getCurrentSession().createQuery("select c.countryName "
+                 + "from Country c, Booking b where b.country.countryId=c.countryId and b.person =:personId");
+        query.setParameter("personId", personId);
+        countryList = query.list();
         return countryList;
     }
 
     @Override
-    public List<String> getAllNames() throws SQLException {
+    public List<String> getAllNames() {
 
-        ArrayList<String> countryNameList = new ArrayList<>();
-
-        String query = "SELECT country_name FROM country";
-
-        Statement statement = con.createStatement();
-        ResultSet rs = statement.executeQuery(query);
-
-        while (rs.next()) {
-            countryNameList.add(rs.getString("country_name"));
-        }
-        statement.close();
-
+        List<String> countryNameList;
+        Query query = sessionFactory.getCurrentSession().createQuery("SELECT c.countryName FROM Country c");
+        countryNameList = query.list();
         return countryNameList;
     }
 

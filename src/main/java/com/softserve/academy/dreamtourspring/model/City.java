@@ -1,6 +1,8 @@
 package com.softserve.academy.dreamtourspring.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,8 +18,10 @@ public class City {
     private String cityName;
 
     @ManyToOne
-    @JoinColumn(name="id_country", referencedColumnName = "id")
+    @JoinColumn(name="id_country")
     private Country country;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "city")
+    private List<Hotel> hotelList;
 
     public City() {
     }
