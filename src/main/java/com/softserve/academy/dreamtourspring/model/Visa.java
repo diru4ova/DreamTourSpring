@@ -11,7 +11,7 @@ public class Visa {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
-    private int idVisa;
+    private int id;
 
     @Column(name="endDate")
     private LocalDate endDate;
@@ -33,12 +33,12 @@ public class Visa {
         this.country = country;
     }
 
-    public int getIdVisa() {
-        return idVisa;
+    public int getId() {
+        return id;
     }
 
-    public void setIdVisa(int idVisa) {
-        this.idVisa = idVisa;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDate getEndDate() {
@@ -78,7 +78,7 @@ public class Visa {
    
         Visa visa = (Visa) o;
 
-        return idVisa == visa.idVisa 
+        return id == visa.id
                 && Objects.equals(person, visa.person)
                 && Objects.equals(country, visa.country)
                 && endDate.equals(visa.endDate);
@@ -86,13 +86,13 @@ public class Visa {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idVisa, person, country, endDate);
+        return Objects.hash(id, person, country, endDate);
     }
     
     @Override
     public String toString() {
         return "Visa [" 
-                + "idVisa=" + idVisa 
+                + "id=" + id
                 + ", Person=" + person
                 + ", Country=" + country
                 + ", endDate=" + endDate
