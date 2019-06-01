@@ -47,13 +47,13 @@ public class CityDaoImpl implements ICityDao {
     }
 
     @Override
-    public List<City> getCityNameByCountry(String countryName) {
+    public List<String> getCityNameByCountry(String countryName) {
 
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("SELECT city.cityName FROM City city, Country country WHERE country.countryName=:countryName" +
                         " AND city.country.countryId=country.id");
         query.setParameter("countryName", countryName);
-        List<City> cityList = query.list();
+        List<String> cityList = query.list();
 
         return cityList;
     }

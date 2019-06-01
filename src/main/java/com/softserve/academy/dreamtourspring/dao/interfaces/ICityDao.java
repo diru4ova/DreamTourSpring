@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ICityDao extends IDao<City> {
 
-    List<City> getCityNameByCountry(String countryName);
+    List<String> getCityNameByCountry(String countryName);
 
     List<String> getAllCityNames();
 
