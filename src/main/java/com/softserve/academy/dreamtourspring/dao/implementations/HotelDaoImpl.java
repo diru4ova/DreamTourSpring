@@ -3,6 +3,7 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IHotelDao;
 import com.softserve.academy.dreamtourspring.model.Hotel;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,11 @@ public class HotelDaoImpl implements IHotelDao {
 
     @Override
     public List<Hotel> getAllHotelsByCityName(String cityName) {
-        return null;
+        Query query = sessionFactory.getCurrentSession().createQuery("from Hotel where city ="
+            + " (from City where cityName = :cityName)");
+        query.setParameter("cityName", cityName);
+        List hotelList = query.list();
+        return hotelList;
     }
 
     @Override
@@ -48,7 +53,6 @@ public class HotelDaoImpl implements IHotelDao {
     public Hotel get(int id) {
 
         return sessionFactory.getCurrentSession().get(Hotel.class, id);
-
     }
 
     @Override
