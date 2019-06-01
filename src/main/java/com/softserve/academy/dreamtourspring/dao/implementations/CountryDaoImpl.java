@@ -8,9 +8,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,13 +19,7 @@ public class CountryDaoImpl implements ICountryDao {
     @Override
     public List<Country> getAll() {
 
-        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<Country> criteria = builder.createQuery(Country.class);
-        criteria.from(Country.class);
-        List<Country> countryList = sessionFactory.getCurrentSession().createQuery(criteria).getResultList();
-
-/*        List<City> cityList = sessionFactory.getCurrentSession().createQuery("SELECT c FROM city c", City.class).getResultList();
-        sessionFactory.getCurrentSession().createQuery("from City").list();*/
+        List<Country> countryList = sessionFactory.getCurrentSession().createQuery("from Country").list();
         return countryList;
     }
 
@@ -51,21 +42,16 @@ public class CountryDaoImpl implements ICountryDao {
     public void delete(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(session.get(Country.class, id));
-        //session.remove(id);
     }
 
     @Override
     public List<String> getCountryNameByPerson(int personId) {
-        ArrayList<String> countryList = new ArrayList<>();
-       /* String query = "select country.country_name \n" + "from country, booking \n"
-                + "where booking.id_country=country.id and booking.id_tourist =?";
-        PreparedStatement statement = con.prepareStatement(query);
-        statement.setInt(1, personId);
-        ResultSet set = statement.executeQuery();
-        while (set.next()) {
-            String countryName = set.getString("country_name");
-            countryList.add(countryName);
-        }*/
+
+        List<String> countryList;
+        Query query = sessionFactory.getCurrentSession().createQuery("select c.countryName "
+                + "from Country c, Booking b where b.country.countryId=c.countryId and b.person =:personId");
+        query.setParameter("personId", personId);
+        countryList = query.list();
         return countryList;
     }
 
@@ -73,10 +59,8 @@ public class CountryDaoImpl implements ICountryDao {
     public List<String> getAllNames() {
 
         String hql = "select countryName from Country";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql,String.class);
-
+        Query query = sessionFactory.getCurrentSession().createQuery(hql, String.class);
         List<String> countryNameList = query.getResultList();
-
         return countryNameList;
     }
 
