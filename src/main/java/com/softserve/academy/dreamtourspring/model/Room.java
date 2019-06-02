@@ -23,6 +23,7 @@ public class Room {
     @Column(name = "price")
     private int price;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "room_type")
     private RoomType roomType;
 

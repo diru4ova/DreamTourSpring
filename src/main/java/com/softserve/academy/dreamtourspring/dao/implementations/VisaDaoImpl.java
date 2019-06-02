@@ -23,8 +23,14 @@ public class VisaDaoImpl implements IVisaDao {
 
     @Override
     public int getVisaCountByCountryForPerson(String countryName, int idPerson) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(id) from Visa"
+            + " where country.countryId=(select id from Country where countryName=:countryName)"
+            + " and person.id=:idPerson");
 
-        return 0;
+        query.setParameter("idPerson", idPerson);
+        query.setParameter("countryName", countryName);
+
+        return (Integer)query.getSingleResult();
     }
 
     public void add(Visa visa) {
@@ -61,7 +67,7 @@ public class VisaDaoImpl implements IVisaDao {
 
     @Override
     public int getIdVisaByCountryByDate(int personId, int countryId, LocalDate endDate) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from Visa "
+        Query query = sessionFactory.getCurrentSession().createQuery("select id from Visa "
             + "where Person.id=:personId AND Country.countryId=:countryId"
             + " AND endDate=:endDate");
 
@@ -69,8 +75,6 @@ public class VisaDaoImpl implements IVisaDao {
         query.setParameter("countryId", countryId);
         query.setParameter("endDate", endDate);
 
-        Visa visa = (Visa)query.getSingleResult();
-
-        return visa.getId();
+        return (Integer)query.getSingleResult();
     }
 }
