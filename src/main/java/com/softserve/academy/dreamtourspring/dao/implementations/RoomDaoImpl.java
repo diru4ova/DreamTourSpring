@@ -3,6 +3,7 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IRoomDao;
 import com.softserve.academy.dreamtourspring.model.Room;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,17 @@ public class RoomDaoImpl implements IRoomDao {
 
     @Override
     public List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel) {
-        return null;
+        Query query = sessionFactory.getCurrentSession().createQuery("from Room where idRoom"
+            + " not in(select Room.idRoom from Booking where not"
+            + " (startDate>:startDate or endDate<:endDate)) and Hotel.idHotel=:idHotel");
+
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        query.setParameter("idHotel", idHotel);
+
+        List<Room> roomList = query.list();
+
+        return roomList;
     }
 
     @Override

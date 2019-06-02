@@ -19,8 +19,10 @@ public class HotelDaoImpl implements IHotelDao {
     public List<Hotel> getAllHotelsByCityName(String cityName) {
         Query query = sessionFactory.getCurrentSession().createQuery("from Hotel where city ="
             + " (from City where cityName = :cityName)");
+
         query.setParameter("cityName", cityName);
-        List hotelList = query.list();
+
+        List<Hotel> hotelList = query.list();
         return hotelList;
     }
 
