@@ -28,7 +28,13 @@ public class HotelDaoImpl implements IHotelDao {
 
     @Override
     public int countTourist(String hotelName) {
-        return 0;
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(idBooking)"
+            + " from Booking where Hotel.idHotel"
+            + "=(select idHotel from Hotel where hotelName=:hotelName)");
+
+        query.setParameter("hotelName", hotelName);
+
+        return (Integer) query.getSingleResult();
     }
 
     @Override
