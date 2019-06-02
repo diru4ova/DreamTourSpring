@@ -47,12 +47,30 @@ public class HotelDaoImpl implements IHotelDao {
 
         query.setParameter("hotelName", hotelName);
 
-        return (Integer)query.getSingleResult();
+        return (Integer) query.getSingleResult();
     }
 
     @Override
     public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
-        return null;
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct"
+            + " Hotel.idHotel, Hotel.hotelName, Hotel.hotelDescription, Hotel.imageUrl,"
+            + " Hotel.stars, Hotel.city from Hotel join City"
+            + " on Hotel.idHotel in(select Hotel.idHotel from Room where idRoom not in"
+            + " (select Room.idRoom from Booking"
+            + " where not(startDate>:endDate or endDate<:startDate)))"
+            + " and City.cityName=:cityName");
+
+        if (endDate.equals("")) {
+            endDate = "date_add(\"" + startDate + "\", INTERVAL 7 DAY)";
+        }
+
+        query.setParameter("endDate", endDate);
+        query.setParameter("startDate", startDate);
+        query.setParameter("cityName", cityName);
+
+        List<Hotel> hotelList = query.list();
+
+        return hotelList;
     }
 
     @Override
