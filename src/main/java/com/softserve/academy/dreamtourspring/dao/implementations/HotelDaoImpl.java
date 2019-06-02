@@ -39,7 +39,15 @@ public class HotelDaoImpl implements IHotelDao {
 
     @Override
     public int averageStay(String hotelName) {
-        return 0;
+//        Query query = sessionFactory.getCurrentSession().createQuery("select avg(endDate-startDate)" +
+//            "from Booking where Hotel.idHotel=(select idHotel from Hotel where hotelName=:hotelName)");
+        Query query = sessionFactory.getCurrentSession().createNativeQuery(
+            "select avg(endDate - startDate) from booking where booking.id_hotel"
+                + " = (select hotel.id from hotel where hotel_name = :hotelName)");
+
+        query.setParameter("hotelName", hotelName);
+
+        return (Integer)query.getSingleResult();
     }
 
     @Override
