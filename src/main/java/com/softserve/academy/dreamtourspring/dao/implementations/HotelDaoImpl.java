@@ -19,24 +19,58 @@ public class HotelDaoImpl implements IHotelDao {
     public List<Hotel> getAllHotelsByCityName(String cityName) {
         Query query = sessionFactory.getCurrentSession().createQuery("from Hotel where city ="
             + " (from City where cityName = :cityName)");
+
         query.setParameter("cityName", cityName);
-        List hotelList = query.list();
+
+        List<Hotel> hotelList = query.list();
         return hotelList;
     }
 
     @Override
     public int countTourist(String hotelName) {
-        return 0;
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(idBooking)"
+            + " from Booking where Hotel.idHotel"
+            + "=(select idHotel from Hotel where hotelName=:hotelName)");
+
+        query.setParameter("hotelName", hotelName);
+
+        return (Integer) query.getSingleResult();
     }
 
     @Override
     public int averageStay(String hotelName) {
-        return 0;
+        Query query = sessionFactory.getCurrentSession().createQuery(
+            "select avg(((year(endDate) * 365) + (month(endDate) * 12) + day(endDate)) "
+                + "- ((year(startDate) * 365) + (month(startDate) * 12) + day(startDate)))"
+                + " from Booking where Hotel.idHotel"
+                + " = (select idHotel from Hotel where hotelName = :hotelName)");
+
+        query.setParameter("hotelName", hotelName);
+
+        return (Integer) query.getSingleResult();
     }
 
     @Override
     public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
-        return null;
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct"
+            + " Hotel.idHotel, Hotel.hotelName, Hotel.hotelDescription, Hotel.imageUrl,"
+            + " Hotel.stars, Hotel.city from Hotel join City"
+            + " on Hotel.idHotel in(select Hotel.idHotel from Room where idRoom not in"
+            + " (select Room.idRoom from Booking"
+            + " where not(startDate>:endDate or endDate<:startDate)))"
+            + " and City.cityName=:cityName");
+
+        if (endDate.equals("")) {
+            endDate = "date_add(\"" + startDate + "\", INTERVAL 7 DAY)";
+        }
+
+        query.setParameter("endDate", endDate);
+        query.setParameter("startDate", startDate);
+        query.setParameter("cityName", cityName);
+
+        List<Hotel> hotelList = query.list();
+
+        return hotelList;
     }
 
     @Override
