@@ -31,12 +31,9 @@
 </form>
 <script>
     function validateCredentials() {
-
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
-
         let success = false;
-
         $.ajax({
             type: "POST",
             async: false,
@@ -50,14 +47,12 @@
             success = true;
         }).fail(function (response) {
             success = false;
-
             if (response.status === 401) {
                 alert("Invalid password");
             } else if (response.status === 403) {
                 alert("User with this username doesn't exist. Please, sign up!")
             }
         });
-
         return success;
     }
 </script>
