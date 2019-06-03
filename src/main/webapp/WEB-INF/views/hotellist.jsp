@@ -20,7 +20,7 @@
         <div class="product-details">
 
 
-            <h2><a href="/hotel?idHotel=${hotel.idHotel}&startDate=${startDate}&endDate=${endDate}&country=${chosenCountry}&city=${chosenCity}">
+            <h2><a href="/hotel?idHotel=${hotel.idHotel}&startDate=${startDate}&endDate=${endDate}&chosenCountry=${chosenCountry}&chosenCity=${chosenCity}">
                     ${hotel.hotelName}</a></h2>
 
             <p>
