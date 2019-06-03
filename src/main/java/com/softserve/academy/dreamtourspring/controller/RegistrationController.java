@@ -2,7 +2,6 @@ package com.softserve.academy.dreamtourspring.controller;
 
 import com.softserve.academy.dreamtourspring.enums.PersonType;
 import com.softserve.academy.dreamtourspring.model.Person;
-import com.softserve.academy.dreamtourspring.service.implementations.PersonServiceImpl;
 import com.softserve.academy.dreamtourspring.service.interfaces.IPersonService;
 import com.softserve.academy.dreamtourspring.utils.HashPasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
