@@ -1,6 +1,7 @@
 package com.softserve.academy.dreamtourspring.service.implementations;
 
 import com.softserve.academy.dreamtourspring.dao.interfaces.IHotelDao;
+import com.softserve.academy.dreamtourspring.model.Booking;
 import com.softserve.academy.dreamtourspring.model.Hotel;
 import com.softserve.academy.dreamtourspring.service.interfaces.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @Transactional
@@ -53,7 +56,15 @@ public class HotelServiceImpl implements IHotelService {
 
     @Override
     public int averageStay(String hotelName) {
-        return hotelDao.averageStay(hotelName);
+        List<Booking> bookingList = hotelDao.averageStay(hotelName);
+        int numberOfDays = 0;
+        int numberOfBooks = bookingList.size();
+
+        for (Booking booking : bookingList) {
+            numberOfDays += DAYS.between(booking.getStartDate(), booking.getEndDate());
+        }
+        
+        return numberOfDays/numberOfBooks;
     }
 
     @Override
