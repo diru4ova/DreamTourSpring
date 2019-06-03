@@ -31,7 +31,7 @@
 
             <p>Price per day:${price}</p>
             <div class="statistics">
-                <span>average stay: ${countTourist[status.index]} days |  total tourists: ${averageStay[status.index]}</span>
+                <span>average stay: ${averageStay[status.index]} days |  total tourists: ${countTourist[status.index]}</span>
             </div>
 
         </div>
