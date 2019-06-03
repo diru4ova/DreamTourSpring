@@ -3,11 +3,14 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IHotelDao;
 import com.softserve.academy.dreamtourspring.model.Booking;
 import com.softserve.academy.dreamtourspring.model.Hotel;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -54,30 +57,38 @@ public class HotelDaoImpl implements IHotelDao {
 
     @Override
     public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select distinct h"
+
+        Session session = sessionFactory.getCurrentSession();
+        List<Hotel> hotelList=null;
+        Query query = null;
+
+        if (endDate.equals("")) {
+            query = session.createQuery("select distinct h"
                     + "  from Hotel h inner join City c"
-                    + " on h.idHotel in(select Room.hotel.idHotel from Room where Room.idRoom not in"
-                    + " (select Booking.room.idRoom from Booking"
-                    + " where not(Booking.startDate>:endDate or Booking.endDate<:startDate)))"
-                    + " and City.cityName=:cityName");
+                    + " on h.idHotel in(select r.hotel.idHotel from Room r where r.idRoom not in"
+                    + " (select b.room.idRoom from Booking b"
+                    + " where not(b.startDate>day(:startDate) or b.endDate<:startDate)))"
+                    + " and h.city.cityName=:cityName");
 
 
-        /*if (endDate.equals("")) {
-            endDate = "date_add(\"" + startDate + "\", INTERVAL 7 DAY)";
-        }*/
-
-        query.setParameter("endDate", endDate);
-        query.setParameter("startDate", startDate);
-        query.setParameter("cityName", cityName);
-
-            //return getAllHotelsByCityName(cityName);
-
-
-        List<Hotel> hotelList = query.getResultList();
-
-        if (hotelList == null || hotelList.isEmpty()) {
-            return getAllHotelsByCityName(cityName);
+            query.setParameter("startDate", LocalDate.parse(startDate));
+            query.setParameter("cityName", cityName);
+            hotelList = query.getResultList();
+            return hotelList;
         }
+
+        query = session.createQuery("select distinct h"
+                + "  from Hotel h inner join City c"
+                + " on h.idHotel in(select r.hotel.idHotel from Room r where r.idRoom not in"
+                + " (select b.room.idRoom from Booking b"
+                + " where not(b.startDate>:endDate or b.endDate<:startDate)))"
+                + " and h.city.cityName=:cityName");
+        query.setParameter("endDate", LocalDate.parse(endDate));
+        query.setParameter("startDate", LocalDate.parse(startDate));
+        query.setParameter("cityName", cityName);
+        hotelList = query.getResultList();
+
+
 
         return hotelList;
     }

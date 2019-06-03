@@ -2,11 +2,13 @@ package com.softserve.academy.dreamtourspring.dao.implementations;
 
 import com.softserve.academy.dreamtourspring.dao.interfaces.IRoomDao;
 import com.softserve.academy.dreamtourspring.model.Room;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -17,15 +19,38 @@ public class RoomDaoImpl implements IRoomDao {
 
     @Override
     public List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from Room where idRoom"
-            + " not in(select Room.idRoom from Booking where not"
-            + " (startDate>:startDate or endDate<:endDate)) and Hotel.idHotel=:idHotel");
+        List<Room> roomList;
+        Session session = sessionFactory.getCurrentSession();
+        Query query;
 
-        query.setParameter("startDate", startDate);
-        query.setParameter("endDate", endDate);
+        if(startDate.equals("") && endDate.equals("")){
+            query = session.createQuery("from Room r where r.hotel.idHotel=:idHotel");
+            query.setParameter("idHotel", idHotel);
+            roomList = query.list();
+            return roomList;
+        }
+
+        if(!startDate.equals("") && endDate.equals("")){
+            query = session.createQuery("from Room r where r.idRoom"
+                    + " not in(select b.room.idRoom from Booking b where not"
+                    + " (startDate>day(:startDate) or endDate<:startDate)) and r.hotel.idHotel=:idHotel");
+            query.setParameter("startDate", LocalDate.parse(startDate));
+            query.setParameter("idHotel", idHotel);
+            roomList = query.list();
+            return roomList;
+        }
+
+        query = session.createQuery("from Room r where r.idRoom"
+            + " not in(select b.room.idRoom from Booking b where not"
+            + " (startDate>:endDate or endDate<:startDate)) and r.hotel.idHotel=:idHotel");
+
+        query.setParameter("startDate", LocalDate.parse(startDate));
+        query.setParameter("endDate", LocalDate.parse(endDate));
         query.setParameter("idHotel", idHotel);
 
-        List<Room> roomList = query.list();
+         roomList = query.list();
+
+
 
         return roomList;
     }
