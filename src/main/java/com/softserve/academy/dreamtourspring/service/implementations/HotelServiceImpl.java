@@ -53,7 +53,7 @@ public class HotelServiceImpl implements IHotelService {
 
     @Override
     public int averageStay(String hotelName) {
-        return hotelDao.averageStay(hotelName);
+        return 0;
     }
 
     @Override
