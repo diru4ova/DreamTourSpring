@@ -18,7 +18,7 @@ public class HotelDaoImpl implements IHotelDao {
     @Override
     public List<Hotel> getAllHotelsByCityName(String cityName) {
         Query query = sessionFactory.getCurrentSession().createQuery("from Hotel where city ="
-            + " (from City where cityName = :cityName)");
+                + " (from City where cityName = :cityName)");
 
         query.setParameter("cityName", cityName);
 
@@ -28,37 +28,44 @@ public class HotelDaoImpl implements IHotelDao {
 
     @Override
     public int countTourist(String hotelName) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select count(idBooking)"
-            + " from Booking where Hotel.idHotel"
-            + "=(select idHotel from Hotel where hotelName=:hotelName)");
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(b.idBooking)"
+                + " from Booking b where b.hotel.idHotel"
+                + "=(select h.idHotel from Hotel h where h.hotelName=:hotelName)");
 
         query.setParameter("hotelName", hotelName);
+        List<Long> list = query.getResultList();
+        if (list == null || list.isEmpty()) {
+            return 0;
+        }
 
-        return (Integer) query.getSingleResult();
+        return list.get(0).intValue();
     }
 
     @Override
     public int averageStay(String hotelName) {
         Query query = sessionFactory.getCurrentSession().createQuery(
-            "select avg(((year(endDate) * 365) + (month(endDate) * 12) + day(endDate)) "
-                + "- ((year(startDate) * 365) + (month(startDate) * 12) + day(startDate)))"
-                + " from Booking where Hotel.idHotel"
-                + " = (select idHotel from Hotel where hotelName = :hotelName)");
+                "select avg(((year(endDate) * 365) + (month(endDate) * 12) + day(endDate)) "
+                        + "- ((year(startDate) * 365) + (month(startDate) * 12) + day(startDate)))"
+                        + " from Booking b where b.hotel.idHotel"
+                        + " = (select h.idHotel from Hotel h where h.hotelName = :hotelName)");
 
         query.setParameter("hotelName", hotelName);
-
-        return (Integer) query.getSingleResult();
+        List<Long> list = query.getResultList();
+        if (list == null || list.isEmpty()) {
+            return 0;
+        }
+        return list.get(0).intValue();
     }
 
     @Override
     public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
         Query query = sessionFactory.getCurrentSession().createQuery("select distinct"
-            + " Hotel.idHotel, Hotel.hotelName, Hotel.hotelDescription, Hotel.imageUrl,"
-            + " Hotel.stars, Hotel.city from Hotel join City"
-            + " on Hotel.idHotel in(select Hotel.idHotel from Room where idRoom not in"
-            + " (select Room.idRoom from Booking"
-            + " where not(startDate>:endDate or endDate<:startDate)))"
-            + " and City.cityName=:cityName");
+                + " Hotel.idHotel, Hotel.hotelName, Hotel.hotelDescription, Hotel.imageUrl,"
+                + " Hotel.stars, Hotel.city from Hotel join City"
+                + " on Hotel.idHotel in(select Hotel.idHotel from Room where idRoom not in"
+                + " (select Room.idRoom from Booking"
+                + " where not(startDate>:endDate or endDate<:startDate)))"
+                + " and City.cityName=:cityName");
 
         if (endDate.equals("")) {
             endDate = "date_add(\"" + startDate + "\", INTERVAL 7 DAY)";

@@ -6,12 +6,14 @@ import com.softserve.academy.dreamtourspring.model.Hotel;
 import com.softserve.academy.dreamtourspring.service.interfaces.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
+@Transactional
 public class HotelServiceImpl implements IHotelService {
 
     @Autowired
