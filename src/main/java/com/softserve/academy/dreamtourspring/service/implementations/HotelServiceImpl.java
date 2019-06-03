@@ -63,6 +63,10 @@ public class HotelServiceImpl implements IHotelService {
         for (Booking booking : bookingList) {
             numberOfDays += DAYS.between(booking.getStartDate(), booking.getEndDate());
         }
+
+        if(numberOfBooks == 0){
+            return 0;
+        }
         
         return numberOfDays/numberOfBooks;
     }
