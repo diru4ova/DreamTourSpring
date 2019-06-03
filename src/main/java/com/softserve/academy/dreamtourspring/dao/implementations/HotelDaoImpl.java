@@ -1,6 +1,7 @@
 package com.softserve.academy.dreamtourspring.dao.implementations;
 
 import com.softserve.academy.dreamtourspring.dao.interfaces.IHotelDao;
+import com.softserve.academy.dreamtourspring.model.Booking;
 import com.softserve.academy.dreamtourspring.model.Hotel;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -42,19 +43,13 @@ public class HotelDaoImpl implements IHotelDao {
     }
 
     @Override
-    public int averageStay(String hotelName) {
+    public List<Booking> averageStay(String hotelName) {
         Query query = sessionFactory.getCurrentSession().createQuery(
-                "select avg(((year(endDate) * 365) + (month(endDate) * 12) + day(endDate)) "
-                        + "- ((year(startDate) * 365) + (month(startDate) * 12) + day(startDate)))"
-                        + " from Booking b where b.hotel.idHotel"
+                "from Booking b where b.hotel.idHotel"
                         + " = (select h.idHotel from Hotel h where h.hotelName = :hotelName)");
-
         query.setParameter("hotelName", hotelName);
-        List<Long> list = query.getResultList();
-        if (list == null || list.isEmpty()) {
-            return 0;
-        }
-        return list.get(0).intValue();
+        List<Booking> bookingList = query.getResultList();
+        return bookingList;
     }
 
     @Override
@@ -62,8 +57,8 @@ public class HotelDaoImpl implements IHotelDao {
         Query query = sessionFactory.getCurrentSession().createQuery("select distinct"
                 + " Hotel.idHotel, Hotel.hotelName, Hotel.hotelDescription, Hotel.imageUrl,"
                 + " Hotel.stars, Hotel.city from Hotel join City"
-                + " on Hotel.idHotel in(select Hotel.idHotel from Room where idRoom not in"
-                + " (select Room.idRoom from Booking"
+                + " on Hotel.idHotel in(select Room.hotel.idHotel from Room where idRoom not in"
+                + " (select Booking.room.idRoom from Booking"
                 + " where not(startDate>:endDate or endDate<:startDate)))"
                 + " and City.cityName=:cityName");
 
@@ -75,7 +70,11 @@ public class HotelDaoImpl implements IHotelDao {
         query.setParameter("startDate", startDate);
         query.setParameter("cityName", cityName);
 
-        List<Hotel> hotelList = query.list();
+        List<Hotel> hotelList = query.getResultList();
+
+        if (hotelList == null || hotelList.isEmpty()) {
+            return getAllHotelsByCityName(cityName);
+        }
 
         return hotelList;
     }
