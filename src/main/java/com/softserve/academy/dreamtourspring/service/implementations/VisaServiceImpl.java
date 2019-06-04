@@ -63,7 +63,6 @@ public class VisaServiceImpl implements IVisaService {
         Visa visa = new Visa(endDate, person, country);
         add(visa);
         return visa;
-
     }
 
     /**

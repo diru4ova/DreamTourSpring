@@ -122,7 +122,9 @@ public class VisaDaoImpl implements IVisaDao {
             query.setParameter("personId", personId);
             query.setParameter("countryId", countryId);
             query.setParameter("endDate", endDate);
+
             visa = (Visa) query.getSingleResult();
+
         } catch (NullPointerException e) {
             visa.setId(0);
         }
