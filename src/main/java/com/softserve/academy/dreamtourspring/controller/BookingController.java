@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Controller
 public class BookingController {
@@ -37,13 +39,19 @@ public class BookingController {
 
     @Autowired
     private IRoomService roomService;
-    @GetMapping("/booking")
-    public String personBook(@RequestParam String startDate, @RequestParam String endDate,
-                             @RequestParam String countryId, @RequestParam String cityId,
+
+    @PostMapping("/booking")
+    public String personBook(@RequestParam String startDate,
+                             @RequestParam String endDate,
+                             @RequestParam String countryId,
+                             @RequestParam String cityId,
                              @RequestParam String hotelId,
-                             @RequestParam String roomId, Model model) {
+                             @RequestParam String roomId,
+                             Model model) {
+
+        System.out.println(startDate + " - " + endDate);
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session =  attr.getRequest().getSession(true); // true == allow create
+        HttpSession session = attr.getRequest().getSession(false);
         int personId = (Integer) session.getAttribute("userId");
         int countryIdInt = Integer.parseInt(countryId);
         LocalDate endLocalDate = LocalDate.parse(endDate);
@@ -61,7 +69,7 @@ public class BookingController {
         Room room = roomService.get(Integer.parseInt(roomId));
 
         Booking booking = new Booking(startLocalDate, endLocalDate, country, city,
-            person, hotel, visa, room);
+                person, hotel, visa, room);
 
         bookingService.add(booking);
         return "redirect:/profile";
