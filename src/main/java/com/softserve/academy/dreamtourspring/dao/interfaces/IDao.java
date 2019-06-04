@@ -3,40 +3,46 @@ package com.softserve.academy.dreamtourspring.dao.interfaces;
 import java.util.List;
 
 /**
- * Generic interface for database access via CRUD operations.
+ * General dao
+ *
+ * @param <T> type of generic
+ * @author Rostyk Hlynka
  */
 public interface IDao<T> {
+
     /**
-     * @return element's list of specified type.
+     * Find all instances of generic
+     *
+     * @return list of instances
      */
     List<T> getAll();
 
     /**
-     * adds an object of specified type to the table in database.
+     * Makes given instance persistent.
      *
-     * @param t an object to be injected into database table.
+     * @param t instance to be persisted
      */
     void add(T t); // C
 
     /**
      * returns an object by id.
      *
-     * @param id of object to be retrieved.
-     * @return an object of specified type from table in database.
+     * @param id instance's id
+     * @return found instance
      */
     T get(int id); // R
 
     /**
-     * updates a record in database connected to passed object
+     * Update given instance.
      *
-     * @param t object to be updated
+     * @param t instance to be updated
      */
     void update(T t); // U
 
     /**
-     * removes a record from database connected to passed id
+     * Delete instance by id
      *
-     * @param id of object to be removed
+     * @param id instance's id
      */
     void delete(int id); // D
 

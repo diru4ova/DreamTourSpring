@@ -18,14 +18,16 @@
 <div class="topnav" id="myTopnav">
     <a href="${pageContext.request.contextPath}/">DreamTour</a>
 
-    <c:if test="${empty sessionScope.user}">
-        <a href="${pageContext.request.contextPath}/login">Log In</a>
-        <a href="${pageContext.request.contextPath}/registration">Sign up</a>
-    </c:if>
-    <c:if test="${empty sessionScope.user == false}">
-        <a href="${pageContext.request.contextPath}/profile">Profile</a>
-        <a href="${pageContext.request.contextPath}/logout">Log out</a>
-    </c:if>
+    <div class="floatRight">
+        <c:if test="${empty sessionScope.user}">
+            <a href="${pageContext.request.contextPath}/login">Log In</a>
+            <a href="${pageContext.request.contextPath}/registration">Sign up</a>
+        </c:if>
+        <c:if test="${empty sessionScope.user == false}">
+            <a href="${pageContext.request.contextPath}/profile">Profile</a>
+            <a href="${pageContext.request.contextPath}/logout">Log out</a>
+        </c:if>
+    </div>
 
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
