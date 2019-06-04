@@ -1,6 +1,10 @@
 package com.softserve.academy.dreamtourspring.service.implementations;
 
+import com.softserve.academy.dreamtourspring.dao.interfaces.ICountryDao;
+import com.softserve.academy.dreamtourspring.dao.interfaces.IPersonDao;
 import com.softserve.academy.dreamtourspring.dao.interfaces.IVisaDao;
+import com.softserve.academy.dreamtourspring.model.Country;
+import com.softserve.academy.dreamtourspring.model.Person;
 import com.softserve.academy.dreamtourspring.model.Visa;
 import com.softserve.academy.dreamtourspring.service.interfaces.IVisaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +21,28 @@ public class VisaServiceImpl implements IVisaService {
     @Autowired
     private IVisaDao visaDao;
 
+    @Autowired
+    private ICountryDao countryDao;
+
+    @Autowired
+    private IPersonDao personDao;
+
     @Override
     public Visa hasVisa(int idPerson, int idCountry, LocalDate endDate) {
+        List<Visa> visaList = getAllVisaByPerson(idPerson);
+        for (Visa visa : visaList) {
+            if (visa.getCountry().getCountryId() == idCountry && visa.getPerson().getId() == idPerson
+                && visa.getEndDate().isAfter(endDate)) {
+                return visa;
+            }
+        }
 
-        return new Visa();
+        Country country = countryDao.get(idCountry);
+        Person person = personDao.get(idPerson);
+
+        Visa visa = new Visa(endDate, person, country);
+        add(visa);
+        return visa;
     }
 
     @Override
