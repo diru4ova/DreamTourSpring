@@ -44,7 +44,7 @@ public class BookingController {
                              @RequestParam String roomId, Model model) {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session =  attr.getRequest().getSession(true); // true == allow create
-        int personId = (Integer) session.getAttribute("id");
+        int personId = (Integer) session.getAttribute("userId");
         int countryIdInt = Integer.parseInt(countryId);
         LocalDate endLocalDate = LocalDate.parse(endDate);
 
