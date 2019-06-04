@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -37,8 +39,10 @@ public class BookingController {
 
     public String personBook(@RequestParam String startDate, @RequestParam String endDate,
                              @RequestParam String countryId, @RequestParam String cityId,
-                             @RequestParam String hotelId, @RequestParam HttpSession session,
+                             @RequestParam String hotelId,
                              @RequestParam String roomId, Model model) {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session =  attr.getRequest().getSession(true); // true == allow create
         int personId = (Integer) session.getAttribute("id");
         int countryIdInt = Integer.parseInt(countryId);
         LocalDate endLocalDate = LocalDate.parse(endDate);
