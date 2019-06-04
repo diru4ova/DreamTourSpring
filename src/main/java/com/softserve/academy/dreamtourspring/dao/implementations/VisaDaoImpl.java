@@ -67,14 +67,20 @@ public class VisaDaoImpl implements IVisaDao {
 
     @Override
     public int getIdVisaByCountryByDate(int personId, int countryId, LocalDate endDate) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select id from Visa "
-            + "where Person.id=:personId AND Country.countryId=:countryId"
-            + " AND endDate=:endDate");
+        Visa visa = new Visa();
+        try {
+            Query query = sessionFactory.getCurrentSession().createQuery("from Visa "
+                + "where person.id=:personId AND country.countryId=:countryId"
+                + " AND endDate=:endDate");
 
-        query.setParameter("personId", personId);
-        query.setParameter("countryId", countryId);
-        query.setParameter("endDate", endDate);
+            query.setParameter("personId", personId);
+            query.setParameter("countryId", countryId);
+            query.setParameter("endDate", endDate);
+            visa = (Visa)query.getSingleResult();
+        } catch (NullPointerException e) {
+            visa.setId(0);
+        }
 
-        return (Integer)query.getSingleResult();
+        return visa.getId();
     }
 }
