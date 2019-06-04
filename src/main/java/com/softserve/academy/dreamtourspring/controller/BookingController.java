@@ -41,17 +41,17 @@ public class BookingController {
     private IRoomService roomService;
 
     @PostMapping("/booking")
-    public String personBook(@RequestParam(required=false,name="startDate") String startDate,
-                             @RequestParam(required=false,name="endDate") String endDate,
-                             @RequestParam(required=false,name="countryId") String countryId,
-                             @RequestParam(required=false,name="cityId") String cityId,
-                             @RequestParam(required=false,name="hotelId") String hotelId,
-                             @RequestParam(required=false,name="roomId") String roomId,
+    public String personBook(@RequestParam String startDate,
+                             @RequestParam String endDate,
+                             @RequestParam String countryId,
+                             @RequestParam String cityId,
+                             @RequestParam String hotelId,
+                             @RequestParam String roomId,
                              Model model) {
 
-        System.out.println("BOOKIING ADSADSA " + countryId);
+        System.out.println(startDate + " - " + endDate);
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        HttpSession session = attr.getRequest().getSession(true);
+        HttpSession session = attr.getRequest().getSession(false);
         int personId = (Integer) session.getAttribute("userId");
         int countryIdInt = Integer.parseInt(countryId);
         LocalDate endLocalDate = LocalDate.parse(endDate);
@@ -69,7 +69,7 @@ public class BookingController {
         Room room = roomService.get(Integer.parseInt(roomId));
 
         Booking booking = new Booking(startLocalDate, endLocalDate, country, city,
-            person, hotel, visa, room);
+                person, hotel, visa, room);
 
         bookingService.add(booking);
         return "redirect:/profile";

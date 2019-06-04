@@ -13,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -61,10 +64,23 @@ public class HotelPageController {
 
         City city = cityService.getCityByName(chosenCity);
 
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(false); // true == allow create
+        int currentUserId;
+
+        if(session != null && session.getAttribute("userId") != null){
+            System.out.println("session not null");
+            currentUserId = (int) session.getAttribute("userId");
+        } else {
+            System.out.println("session null");
+            currentUserId = -1;
+        }
+
         model.addAttribute("countryId", city.getCountry().getCountryId());
         model.addAttribute("cityId", city.getCityId());
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
+        model.addAttribute("userId", currentUserId);
 
         return "hotelPage";
     }

@@ -46,9 +46,15 @@
                 <h2>STANDARD</h2>
                 <img width="100%" height="300px" src="${roomStandard.imageUrl}">
                 <h3 class="info">Price: ${roomStandard.price}$ Free now: ${standardCount}</h3>
-                <form action="/booking" method="POST">
+                <form action="/booking" method="POST" onsubmit="return validateData()">
+                    <input type="hidden" name="countryId" id="countryId" value="${countryId}">
+                    <input type="hidden" name="cityId" id="cityId" value="${cityId}">
+                    <input type="hidden" name="hotelId" id="hotelId" value="${hotel.idHotel}">
+                    <input type="hidden" name="roomId" id="roomId" value="${roomStandard.idRoom}">
+                    <input type="hidden" name="startDate" id="startDate" value="${startDate}">
+                    <input type="hidden" name="endDate" id="endDate" value="${endDate}">
+                    <input type="hidden" id="userId" value="${userId}">
                     <input id="bookStandard" type="submit" value="Book">
-                    <input type="hidden" id="countryId" value="${countryId}">
                 </form>
             </div>
         </c:if>
@@ -68,28 +74,27 @@
 </div>
 
 <script>
-    $("#bookStandard").onclick(function () {
-        var countryId = ${countryId};
-        var hotelId = ${hotel.idHotel};
-        var startDate = ${startDate};
-        var endDate = ${endDate};
-        var cityId = ${cityId};
-        var roomId = ${roomStandard.idRoom};
+    function validateData() {
 
-        console.log("cI" + countryId);
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+        var userId = document.getElementById("userId").value;
 
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "/booking",
-            data: {
-                hotelId: hotelId, startDate: startDate, endDate: endDate,
-                cityId: cityId, roomId: roomId, "countryId": document.getElementById("countryId").value
-            }
-        }).fail(function () {
-            alert("Please, enter dates!");
-        });
-    });
+        console.log("userID = " + userId);
+
+        if((startDate === "" || endDate === "") && userId === "-1") {
+            alert("Please,sign in and choose dates!");
+            window.location.href = '/login';
+            return false;
+        } else if((startDate === "" || endDate === "") && userId !== "-1") {
+            alert("Please,choose dates!");
+            window.location.href = '/';
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 </script>
 
 </body>
