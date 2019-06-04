@@ -106,4 +106,14 @@ public class VisaServiceImplTest {
         visaService.update(visa);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void hasVisaWithInvalidArguments() {
+
+        int idPerson = 1;
+        int idCountry = 1;
+        LocalDate endDate = null;
+
+        visaService.hasVisa(idPerson, idCountry, endDate);
+    }
+
 }
