@@ -33,6 +33,13 @@ public class Visa {
         this.country = country;
     }
 
+    public Visa(int id, LocalDate endDate, Person person, Country country) {
+        this.id = id;
+        this.endDate = endDate;
+        this.person = person;
+        this.country = country;
+    }
+
     public int getId() {
         return id;
     }
