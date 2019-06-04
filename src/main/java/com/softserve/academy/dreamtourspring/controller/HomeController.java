@@ -29,6 +29,7 @@ public class HomeController {
 
     /**
      * Handles get request to welcome page
+     *
      * @return welcome view
      */
     @GetMapping(value = "/")
@@ -40,6 +41,7 @@ public class HomeController {
 
     /**
      * Handles post request to welcome page
+     *
      * @return logical view name
      */
     @PostMapping(value = "/home")
@@ -50,6 +52,7 @@ public class HomeController {
 
     /**
      * Retrieve cities by country name
+     *
      * @param chosenCountry name of country
      * @return cities' name as string
      */
@@ -57,7 +60,13 @@ public class HomeController {
     public @ResponseBody
     String getCities(@RequestParam("country") String chosenCountry) {
 
-        List<String> cityNames = cityService.getCityNameByCountry(chosenCountry);
+        List<String> cityNames = null;
+
+        try {
+            cityNames = cityService.getCityNameByCountry(chosenCountry);
+        } catch (IllegalArgumentException e) {
+            e.getMessage();
+        }
         String citiesString = String.join(",", cityNames);
 
         return citiesString;

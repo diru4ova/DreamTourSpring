@@ -47,6 +47,7 @@ public class ProfileController {
 
     /**
      * Handles get request and display profile page with person's data
+     *
      * @return profile view
      */
     @GetMapping(value = "/profile")

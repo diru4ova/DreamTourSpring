@@ -26,6 +26,7 @@ public class LoginController {
 
     /**
      * Handles get request to welcome page
+     *
      * @return login view
      */
     @GetMapping(value = "/login")
@@ -35,6 +36,7 @@ public class LoginController {
 
     /**
      * Handles post request to login person
+     *
      * @param username person's username
      * @param password person's password
      * @return status code response
@@ -44,7 +46,13 @@ public class LoginController {
     ResponseEntity<Object> login(@RequestParam("username") String username,
                                  @RequestParam("password") String password) {
 
-        Person person = personService.getPersonByCredentials(username);
+        Person person = null;
+
+        try {
+            person = personService.getPersonByCredentials(username);
+        } catch (IllegalArgumentException e) {
+            e.getMessage();
+        }
 
         if (person != null) {
 
@@ -53,7 +61,7 @@ public class LoginController {
             if (validPassword) {
 
                 ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-                HttpSession session =  attr.getRequest().getSession(true); // true == allow create
+                HttpSession session = attr.getRequest().getSession(true); // true == allow create
                 session.setAttribute("user", username);
                 session.setAttribute("userId", person.getId());
             } else {

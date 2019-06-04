@@ -38,7 +38,13 @@ public class PersonServiceImpl implements IPersonService {
      * @param person instance to be persisted
      */
     @Override
-    public void add(Person person) {
+    public void add(Person person) throws IllegalArgumentException {
+
+        if (person.getFirstName() == null || person.getLastName() == null
+                || person.getUsername() == null || person.getPassword() == null) {
+
+            throw new IllegalArgumentException("person is not completed!");
+        }
 
         personDao.add(person);
     }
@@ -61,7 +67,13 @@ public class PersonServiceImpl implements IPersonService {
      * @param person instance to be updated
      */
     @Override
-    public void update(Person person) {
+    public void update(Person person) throws IllegalArgumentException {
+
+        if (person.getFirstName() == null || person.getLastName() == null
+                || person.getUsername() == null || person.getPassword() == null) {
+
+            throw new IllegalArgumentException("person is not completed!");
+        }
 
         personDao.update(person);
     }
@@ -83,7 +95,12 @@ public class PersonServiceImpl implements IPersonService {
      * @param username person's username
      * @return person instance
      */
-    public Person getPersonByCredentials(String username) {
+    public Person getPersonByCredentials(String username) throws IllegalArgumentException {
+
+        if (username == null) {
+
+            throw new IllegalArgumentException("username can't be null!");
+        }
 
         return personDao.getPersonByCredentials(username);
     }

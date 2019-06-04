@@ -30,6 +30,7 @@ public class RegistrationController {
 
     /**
      * Handles get request to registration view
+     *
      * @return registration view
      */
     @GetMapping(value = "/registration")
@@ -39,10 +40,11 @@ public class RegistrationController {
 
     /**
      * Handles post request to registration
+     *
      * @param firstName person's first name
-     * @param lastName person's last name
-     * @param username person's username
-     * @param password person's password
+     * @param lastName  person's last name
+     * @param username  person's username
+     * @param password  person's password
      * @return status code response
      */
     @PostMapping(value = "/registration")
@@ -59,11 +61,16 @@ public class RegistrationController {
         if (person == null) {
 
             person = new Person(username, securePassword, firstName, lastName, PersonType.USER);
-            personService.add(person);
+
+            try {
+                personService.add(person);
+            } catch (IllegalArgumentException e) {
+                e.getMessage();
+            }
             person = personService.getPersonByCredentials(username);
 
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpSession session =  attr.getRequest().getSession(true); // true == allow create
+            HttpSession session = attr.getRequest().getSession(true); // true == allow create
             session.setAttribute("user", username);
             session.setAttribute("userId", person.getId());
 
