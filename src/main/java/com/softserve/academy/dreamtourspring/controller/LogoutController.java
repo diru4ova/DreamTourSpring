@@ -7,9 +7,18 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Logout controller class
+ *
+ * @author Rostyk Hlynka
+ */
 @Controller
 public class LogoutController {
 
+    /**
+     * Handles get request to log out
+     * @return welcome view
+     */
     @GetMapping(value = "/logout")
     public String logout(){
 

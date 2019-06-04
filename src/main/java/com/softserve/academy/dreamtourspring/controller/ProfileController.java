@@ -25,6 +25,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Profile controller class
+ *
+ * @author Rostyk Hlynka
+ */
 @Controller
 public class ProfileController {
 
@@ -40,6 +45,10 @@ public class ProfileController {
     @Autowired
     ICountryService countryService;
 
+    /**
+     * Handles get request and display profile page with person's data
+     * @return profile view
+     */
     @GetMapping(value = "/profile")
     public String onProfile(ModelMap map) {
 

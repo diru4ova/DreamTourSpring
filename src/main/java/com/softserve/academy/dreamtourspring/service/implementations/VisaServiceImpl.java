@@ -10,6 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Visa service implementation
+ *
+ * @author Rostyk Hlynka
+ */
 @Service
 @Transactional
 public class VisaServiceImpl implements IVisaService {
@@ -17,48 +22,88 @@ public class VisaServiceImpl implements IVisaService {
     @Autowired
     private IVisaDao visaDao;
 
+    /**
+     * Check if visa is actual
+     * @param idPerson person's id
+     * @param idCountry country's id
+     * @param endDate end date of tour
+     * @return visa instance
+     */
     @Override
     public Visa hasVisa(int idPerson, int idCountry, LocalDate endDate) {
 
         return new Visa();
     }
 
+    /**
+     * Find all visas
+     * @return list of visas
+     */
     @Override
     public List<Visa> getAll() {
 
         return visaDao.getAll();
     }
 
+    /**
+     * Check if person can book tour
+     * @param personId person's id
+     * @param countryId country's id
+     * @param endDate end date of tour
+     * @return visa's id
+     */
     @Override
     public int getIdVisaByCountryByDate(int personId, int countryId, LocalDate endDate) {
 
         return visaDao.getIdVisaByCountryByDate(personId, countryId, endDate);
     }
 
+    /**
+     * Makes given visa persistent.
+     * @param visa instance to be persisted
+     */
     @Override
     public void add(Visa visa) {
 
         visaDao.add(visa);
     }
 
+    /**
+     * Find visa by id.
+     * @param id visa's id
+     * @return visa instance
+     */
     @Override
     public Visa get(int id) {
 
         return visaDao.get(id);
     }
 
+    /**
+     * Updates given instance.
+     * @param visa instance to be updated
+     */
     @Override
     public void update(Visa visa) {
 
         visaDao.update(visa);
     }
 
+    /**
+     * Delete visa by id
+     * @param id visa's id
+     */
     @Override
     public void delete(int id) {
 
         visaDao.delete(id);
     }
 
+    /**
+     * Find visas by person
+     * @param idPerson person's id
+     * @return list of visa
+     */
     @Override
     public List<Visa> getAllVisaByPerson(int idPerson) {
 

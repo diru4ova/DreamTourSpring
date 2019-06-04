@@ -17,17 +17,34 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Registration controller class
+ *
+ * @author Rostyk Hlynka
+ */
 @Controller
 public class RegistrationController {
 
     @Autowired
     IPersonService personService;
 
+    /**
+     * Handles get request to registration view
+     * @return registration view
+     */
     @GetMapping(value = "/registration")
     public String onRegistration() {
         return "registration";
     }
 
+    /**
+     * Handles post request to registration
+     * @param firstName person's first name
+     * @param lastName person's last name
+     * @param username person's username
+     * @param password person's password
+     * @return status code response
+     */
     @PostMapping(value = "/registration")
     public @ResponseBody
     ResponseEntity<Object> register(@RequestParam("firstName") String firstName,

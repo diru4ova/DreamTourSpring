@@ -13,17 +13,32 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Login controller class
+ *
+ * @author Rostyk Hlynka
+ */
 @Controller
 public class LoginController {
 
     @Autowired
     IPersonService personService;
 
+    /**
+     * Handles get request to welcome page
+     * @return login view
+     */
     @GetMapping(value = "/login")
     public String onLogin() {
         return "login";
     }
 
+    /**
+     * Handles post request to login person
+     * @param username person's username
+     * @param password person's password
+     * @return status code response
+     */
     @PostMapping(value = "/login")
     public @ResponseBody
     ResponseEntity<Object> login(@RequestParam("username") String username,
