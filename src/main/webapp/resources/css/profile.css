@@ -30,15 +30,46 @@ main {
     overflow: auto;
 }
 
+input {
+    display: none;
+}
+
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.icon {
+    padding-top: 8px;
+    background: rgba(0, 98, 255, 0.8);
+    color: white;
+    min-width: 50px;
+    font-size: 2em;
+    height: 45px;
+    text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.myInput {
+    height: 53px;
+    display: initial;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    outline: none;
+}
 
 section {
     display: none;
     color: #fff;
     padding: 40px 40px;
-}
-
-input {
-    display: none;
 }
 
 p {
