@@ -56,6 +56,7 @@ public class HotelServiceImpl implements IHotelService {
 
     @Override
     public int averageStay(String hotelName) {
+
         List<Booking> bookingList = hotelDao.averageStay(hotelName);
         int numberOfDays = 0;
         int numberOfBooks = bookingList.size();
@@ -63,8 +64,13 @@ public class HotelServiceImpl implements IHotelService {
         for (Booking booking : bookingList) {
             numberOfDays += DAYS.between(booking.getStartDate(), booking.getEndDate());
         }
+
+        if(numberOfBooks == 0){
+            return 0;
+        }
         
         return numberOfDays/numberOfBooks;
+
     }
 
     @Override

@@ -29,6 +29,12 @@ public class HomeController {
         return "index";
     }
 
+    @PostMapping(value = "/home")
+    public String home() {
+
+        return "redirect:/";
+    }
+
     @PostMapping(value = "/getCities", produces = "text/plain")
     public @ResponseBody
     String getCities(@RequestParam("country") String chosenCountry) {

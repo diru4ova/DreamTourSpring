@@ -71,7 +71,7 @@ public class CityDaoImpl implements ICityDao {
     @Override
     public City getCityByName(String cityName) {
         Query query = sessionFactory.getCurrentSession()
-                .createQuery("from City where cityName=:name");
+                .createQuery("from City c where c.cityName=:name");
         query.setParameter("name", cityName);
         City city = (City) query.uniqueResult();
         return city;
