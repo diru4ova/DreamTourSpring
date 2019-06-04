@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import static com.softserve.academy.dreamtourspring.enums.RoomType.STANDARD;
 
 @Service
 @Transactional
@@ -43,6 +46,35 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel) {
-        return roomDao.getFreeRoomsInHotel(startDate, endDate, idHotel);
+
+        LocalDate start;
+        LocalDate end;
+
+        if (startDate.equals("") && endDate.equals("")) {
+            return roomDao.getAllRoomsInHotel(idHotel);
+
+        } else if (!startDate.equals("") && endDate.equals("")) {
+            start = LocalDate.parse(startDate);
+            end = start.plusDays(7);
+            return roomDao.getFreeRoomsInHotel(start, end, idHotel);
+
+        } else {
+            start = LocalDate.parse(startDate);
+            end = LocalDate.parse(endDate);
+            return roomDao.getFreeRoomsInHotel(start, end, idHotel);
+        }
+
+    }
+
+    @Override
+    public int standartPrice() {
+        List<Room> roomList = roomDao.getAll();
+        int price = 0;
+        for (Room room : roomList) {
+            if (room.getRoomType() == STANDARD) {
+                price = room.getPrice();
+            }
+        }
+        return price;
     }
 }

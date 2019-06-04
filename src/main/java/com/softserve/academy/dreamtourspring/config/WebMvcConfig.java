@@ -27,7 +27,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return resolver;
     }
 
-    @Bean
+    /*@Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();
         source.setBasename("messages");
@@ -39,7 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();
         validator.setValidationMessageSource(messageSource());
         return validator;
-    }
+    }*/
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

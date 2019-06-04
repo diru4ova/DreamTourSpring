@@ -19,9 +19,9 @@ public interface IHotelService {
 
     List<Hotel> getAllHotelsByCityName(String cityName);
 
-    int countTourist(String hotelName);
+    int [] countTourist(List<Hotel> hotels);
 
-    int averageStay(String hotelName);
+    int [] averageStay(List <Hotel> hotels);
 
     List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName);
 

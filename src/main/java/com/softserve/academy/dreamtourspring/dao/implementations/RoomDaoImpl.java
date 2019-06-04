@@ -18,12 +18,12 @@ public class RoomDaoImpl implements IRoomDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel) {
+    public List<Room> getFreeRoomsInHotel(LocalDate startDate, LocalDate endDate, int idHotel) {
         List<Room> roomList;
         Session session = sessionFactory.getCurrentSession();
         Query query;
 
-        if(startDate.equals("") && endDate.equals("")){
+        /*if(startDate.equals("") && endDate.equals("")){
             query = session.createQuery("from Room r where r.hotel.idHotel=:idHotel");
             query.setParameter("idHotel", idHotel);
             roomList = query.list();
@@ -34,18 +34,18 @@ public class RoomDaoImpl implements IRoomDao {
             query = session.createQuery("from Room r where r.idRoom"
                     + " not in(select b.room.idRoom from Booking b where not"
                     + " (startDate>day(:startDate) or endDate<:startDate)) and r.hotel.idHotel=:idHotel");
-            query.setParameter("startDate", LocalDate.parse(startDate));
+            query.setParameter("startDate", startDate);
             query.setParameter("idHotel", idHotel);
             roomList = query.list();
             return roomList;
-        }
+        }*/
 
         query = session.createQuery("from Room r where r.idRoom"
             + " not in(select b.room.idRoom from Booking b where not"
             + " (startDate>:endDate or endDate<:startDate)) and r.hotel.idHotel=:idHotel");
 
-        query.setParameter("startDate", LocalDate.parse(startDate));
-        query.setParameter("endDate", LocalDate.parse(endDate));
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
         query.setParameter("idHotel", idHotel);
 
          roomList = query.list();
@@ -53,6 +53,17 @@ public class RoomDaoImpl implements IRoomDao {
 
 
         return roomList;
+    }
+
+    @Override
+    public List<Room> getAllRoomsInHotel(int idHotel) {
+        List<Room> roomList;
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("from Room r where r.hotel.idHotel=:idHotel");
+        query.setParameter("idHotel", idHotel);
+        roomList = query.list();
+        return roomList;
+
     }
 
     @Override
