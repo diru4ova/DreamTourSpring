@@ -73,17 +73,17 @@
                 <img width="100%" height="300px" src="${roomLuxe.imageUrl}">
                 <c:choose>
                     <c:when test="${startDate.length() != 0}">
-                        <h3 class="info">Price: ${roomStandard.price}$ Free now: ${standardCount}</h3>
+                        <h3 class="info">Price: ${roomLuxe.price}$ Free now: ${standardCount}</h3>
                     </c:when>
                     <c:otherwise>
-                        <h3 class="info">Price: ${roomStandard.price}$ Total amount: ${standardCount}</h3>
+                        <h3 class="info">Price: ${roomLuxe.price}$ Total amount: ${standardCount}</h3>
                     </c:otherwise>
                 </c:choose>
                 <form action="/booking" method="POST" onsubmit="return validateData()">
                     <input type="hidden" name="countryId" value="${countryId}">
                     <input type="hidden" name="cityId" value="${cityId}">
                     <input type="hidden" name="hotelId" value="${hotel.idHotel}">
-                    <input type="hidden" name="roomId" value="${roomStandard.idRoom}">
+                    <input type="hidden" name="roomId" value="${roomLuxe.idRoom}">
                     <input type="hidden" name="startDate" value="${startDate}">
                     <input type="hidden" name="endDate" value="${endDate}">
                     <input type="hidden" value="${userId}">
