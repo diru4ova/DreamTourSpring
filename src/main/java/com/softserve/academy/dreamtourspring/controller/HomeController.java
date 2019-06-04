@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * Home controller class
+ *
+ * @author Rostyk Hlynka
+ */
 @Controller
 public class HomeController {
 
@@ -22,6 +27,11 @@ public class HomeController {
     @Autowired
     private ICityService cityService;
 
+    /**
+     * Handles get request to welcome page
+     *
+     * @return welcome view
+     */
     @GetMapping(value = "/")
     public String onHome(ModelMap map) {
 
@@ -29,17 +39,34 @@ public class HomeController {
         return "index";
     }
 
+    /**
+     * Handles post request to welcome page
+     *
+     * @return logical view name
+     */
     @PostMapping(value = "/home")
     public String home() {
 
         return "redirect:/";
     }
 
+    /**
+     * Retrieve cities by country name
+     *
+     * @param chosenCountry name of country
+     * @return cities' name as string
+     */
     @PostMapping(value = "/getCities", produces = "text/plain")
     public @ResponseBody
     String getCities(@RequestParam("country") String chosenCountry) {
 
-        List<String> cityNames = cityService.getCityNameByCountry(chosenCountry);
+        List<String> cityNames = null;
+
+        try {
+            cityNames = cityService.getCityNameByCountry(chosenCountry);
+        } catch (IllegalArgumentException e) {
+            e.getMessage();
+        }
         String citiesString = String.join(",", cityNames);
 
         return citiesString;
