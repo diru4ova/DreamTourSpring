@@ -22,6 +22,7 @@ public class PersonDaoImpl implements IPersonDao {
 
     /**
      * Find all instances of person
+     *
      * @return list of instances
      */
     @Override
@@ -31,6 +32,7 @@ public class PersonDaoImpl implements IPersonDao {
 
     /**
      * Makes given instance persistent.
+     *
      * @param person instance to be persisted
      */
     @Override
@@ -40,6 +42,7 @@ public class PersonDaoImpl implements IPersonDao {
 
     /**
      * Find person by id
+     *
      * @param id person's id
      * @return found person
      */
@@ -50,6 +53,7 @@ public class PersonDaoImpl implements IPersonDao {
 
     /**
      * Update given person.
+     *
      * @param person instance to be updated
      */
     @Override
@@ -84,7 +88,7 @@ public class PersonDaoImpl implements IPersonDao {
 
         List<Person> personList = query.list();
         Person person = null;
-        if(!personList.isEmpty()){
+        if (!personList.isEmpty()) {
             // ignores multiple results
             person = personList.get(0);
         }
