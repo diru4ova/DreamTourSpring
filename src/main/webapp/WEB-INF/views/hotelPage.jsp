@@ -46,7 +46,10 @@
                 <h2>STANDARD</h2>
                 <img width="100%" height="300px" src="${roomStandard.imageUrl}">
                 <h3 class="info">Price: ${roomStandard.price}$ Free now: ${standardCount}</h3>
-                <a href="/booking?hotelId=${hotel.idHotel}&startDate=${startDate}&endDate=${endDate}&cityId=${cityId}&countryId=${countryId}&roomId=${roomStandard.idRoom}">Book</a>
+                <form action="/booking" method="POST">
+                    <input id="bookStandard" type="submit" value="Book">
+                    <input type="hidden" id="countryId" value="${countryId}">
+                </form>
             </div>
         </c:if>
 
@@ -56,12 +59,38 @@
                 <h2>LUXE</h2>
                 <img width="100%" height="300px" src="${roomLuxe.imageUrl}">
                 <h3 class="info">Price: ${roomLuxe.price}$ Free now: ${luxeCount}</h3>
-                    <a href="/booking?hotelId=${hotel.idHotel}&startDate=${startDate}&endDate=${endDate}&cityId=${cityId}&countryId=${countryId}&roomId=${roomLuxe.idRoom}">Book</a>
-
+                <form action="/booking" method="POST">
+                    <input id="bookLuxe" type="submit" value="Book">
+                </form>
             </div>
         </c:if>
     </div>
 </div>
+
+<script>
+    $("#bookStandard").onclick(function () {
+        var countryId = ${countryId};
+        var hotelId = ${hotel.idHotel};
+        var startDate = ${startDate};
+        var endDate = ${endDate};
+        var cityId = ${cityId};
+        var roomId = ${roomStandard.idRoom};
+
+        console.log("cI" + countryId);
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/booking",
+            data: {
+                hotelId: hotelId, startDate: startDate, endDate: endDate,
+                cityId: cityId, roomId: roomId, "countryId": document.getElementById("countryId").value
+            }
+        }).fail(function () {
+            alert("Please, enter dates!");
+        });
+    });
+</script>
 
 </body>
 </html>
