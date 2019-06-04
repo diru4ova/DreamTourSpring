@@ -18,8 +18,6 @@ public interface IRoomService {
 
     List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel);
 
-
-
     int standartPrice();
 
 }

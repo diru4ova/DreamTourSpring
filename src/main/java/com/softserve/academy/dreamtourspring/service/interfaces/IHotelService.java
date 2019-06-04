@@ -1,6 +1,5 @@
 package com.softserve.academy.dreamtourspring.service.interfaces;
 
-import com.softserve.academy.dreamtourspring.model.Booking;
 import com.softserve.academy.dreamtourspring.model.Hotel;
 
 import java.util.List;

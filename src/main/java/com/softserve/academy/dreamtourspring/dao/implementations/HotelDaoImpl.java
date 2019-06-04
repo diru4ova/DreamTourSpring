@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -41,7 +40,6 @@ public class HotelDaoImpl implements IHotelDao {
         if (list == null || list.isEmpty()) {
             return 0;
         }
-
         return list.get(0).intValue();
     }
 
@@ -59,25 +57,8 @@ public class HotelDaoImpl implements IHotelDao {
     public List<Hotel> getAllAvailableHotelsInCity(LocalDate startDate, LocalDate endDate, String cityName) {
 
         Session session = sessionFactory.getCurrentSession();
-        List<Hotel> hotelList=null;
-        Query query = null;
 
-        /*if (endDate.equals("")) {
-            query = session.createQuery("select distinct h"
-                    + "  from Hotel h inner join City c"
-                    + " on h.idHotel in(select r.hotel.idHotel from Room r where r.idRoom not in"
-                    + " (select b.room.idRoom from Booking b"
-                    + " where not(b.startDate>day(:startDate) or b.endDate<:startDate)))"
-                    + " and h.city.cityName=:cityName");
-
-
-            query.setParameter("startDate", startDate);
-            query.setParameter("cityName", cityName);
-            hotelList = query.getResultList();
-            return hotelList;
-        }*/
-
-        query = session.createQuery("select distinct h"
+        Query query = session.createQuery("select distinct h"
                 + "  from Hotel h inner join City c"
                 + " on h.idHotel in(select r.hotel.idHotel from Room r where r.idRoom not in"
                 + " (select b.room.idRoom from Booking b"
@@ -86,9 +67,8 @@ public class HotelDaoImpl implements IHotelDao {
         query.setParameter("endDate", endDate);
         query.setParameter("startDate", startDate);
         query.setParameter("cityName", cityName);
-        hotelList = query.getResultList();
 
-
+        List<Hotel> hotelList = query.getResultList();
 
         return hotelList;
     }

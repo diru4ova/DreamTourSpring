@@ -21,36 +21,15 @@ public class RoomDaoImpl implements IRoomDao {
     public List<Room> getFreeRoomsInHotel(LocalDate startDate, LocalDate endDate, int idHotel) {
         List<Room> roomList;
         Session session = sessionFactory.getCurrentSession();
-        Query query;
-
-        /*if(startDate.equals("") && endDate.equals("")){
-            query = session.createQuery("from Room r where r.hotel.idHotel=:idHotel");
-            query.setParameter("idHotel", idHotel);
-            roomList = query.list();
-            return roomList;
-        }
-
-        if(!startDate.equals("") && endDate.equals("")){
-            query = session.createQuery("from Room r where r.idRoom"
-                    + " not in(select b.room.idRoom from Booking b where not"
-                    + " (startDate>day(:startDate) or endDate<:startDate)) and r.hotel.idHotel=:idHotel");
-            query.setParameter("startDate", startDate);
-            query.setParameter("idHotel", idHotel);
-            roomList = query.list();
-            return roomList;
-        }*/
-
-        query = session.createQuery("from Room r where r.idRoom"
-            + " not in(select b.room.idRoom from Booking b where not"
-            + " (startDate>:endDate or endDate<:startDate)) and r.hotel.idHotel=:idHotel");
+        Query query = session.createQuery("from Room r where r.idRoom"
+                + " not in(select b.room.idRoom from Booking b where not"
+                + " (startDate>:endDate or endDate<:startDate)) and r.hotel.idHotel=:idHotel");
 
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         query.setParameter("idHotel", idHotel);
 
-         roomList = query.list();
-
-
+        roomList = query.list();
 
         return roomList;
     }
@@ -63,7 +42,6 @@ public class RoomDaoImpl implements IRoomDao {
         query.setParameter("idHotel", idHotel);
         roomList = query.list();
         return roomList;
-
     }
 
     @Override

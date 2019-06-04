@@ -79,25 +79,9 @@ public class HotelServiceImpl implements IHotelService {
             } else {
                 averageStay[i] = numberOfDays / numberOfBooks;
             }
-
             ++i;
         }
-
-        /*List<Booking> bookingList = hotelDao.averageStay(hotelName);
-        int numberOfDays = 0;
-        int numberOfBooks = bookingList.size();
-
-        for (Booking booking : bookingList) {
-            numberOfDays += DAYS.between(booking.getStartDate(), booking.getEndDate());
-        }
-
-        if(numberOfBooks == 0){
-            return 0;
-        }
-        
-        return numberOfDays/numberOfBooks;*/
         return averageStay;
-
     }
 
     @Override
@@ -106,11 +90,9 @@ public class HotelServiceImpl implements IHotelService {
         LocalDate start;
         LocalDate end;
 
-        //List<Hotel> hotels;
-
         if (startDate.equals("") && endDate.equals("")) {
             return hotelDao.getAllHotelsByCityName(cityName);
-        }else if(!startDate.equals("") && endDate.equals("")){
+        } else if (!startDate.equals("") && endDate.equals("")) {
             start = LocalDate.parse(startDate);
             end = start.plusDays(7);
             return hotelDao.getAllAvailableHotelsInCity(start, end, cityName);
@@ -120,7 +102,6 @@ public class HotelServiceImpl implements IHotelService {
             return hotelDao.getAllAvailableHotelsInCity(start, end, cityName);
         }
 
-        //return hotels;
     }
 
 }
