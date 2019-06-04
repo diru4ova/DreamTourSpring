@@ -1,9 +1,11 @@
 package com.softserve.academy.dreamtourspring.controller;
 
+import com.softserve.academy.dreamtourspring.controller.interceptors.LoggerInterceptor;
 import com.softserve.academy.dreamtourspring.enums.PersonType;
 import com.softserve.academy.dreamtourspring.model.Person;
 import com.softserve.academy.dreamtourspring.service.interfaces.IPersonService;
 import com.softserve.academy.dreamtourspring.utils.HashPasswordUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,8 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class RegistrationController {
+
+    private static Logger logger = Logger.getLogger(LoggerInterceptor.class);
 
     @Autowired
     IPersonService personService;
@@ -65,7 +69,7 @@ public class RegistrationController {
             try {
                 personService.add(person);
             } catch (IllegalArgumentException e) {
-                e.getMessage();
+                logger.error(e.getMessage());
             }
             person = personService.getPersonByCredentials(username);
 

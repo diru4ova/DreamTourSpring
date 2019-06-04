@@ -1,8 +1,10 @@
 package com.softserve.academy.dreamtourspring.controller;
 
+import com.softserve.academy.dreamtourspring.controller.interceptors.LoggerInterceptor;
 import com.softserve.academy.dreamtourspring.model.City;
 import com.softserve.academy.dreamtourspring.service.interfaces.ICityService;
 import com.softserve.academy.dreamtourspring.service.interfaces.ICountryService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +22,8 @@ import java.util.List;
  */
 @Controller
 public class HomeController {
+
+    private static Logger logger = Logger.getLogger(LoggerInterceptor.class);
 
     @Autowired
     private ICountryService countryService;
@@ -65,7 +69,7 @@ public class HomeController {
         try {
             cityNames = cityService.getCityNameByCountry(chosenCountry);
         } catch (IllegalArgumentException e) {
-            e.getMessage();
+            logger.error(e.getMessage());
         }
         String citiesString = String.join(",", cityNames);
 

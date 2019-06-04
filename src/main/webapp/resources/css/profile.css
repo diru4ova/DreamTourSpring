@@ -7,13 +7,13 @@
 }
 
 body {
-    min-height: 100vh;
     display: -ms-flexbox;
     display: flex;
     background: url("../images/bg_1.jpg");
     background-size: cover;
     background-position: center center;
     font-family: 'Poppins', sans-serif;
+    overflow: hidden;
 }
 
 p:not(:last-child) {
