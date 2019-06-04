@@ -4,7 +4,6 @@
     width: 100%;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0);
-
 }
 
 .topnav a {
@@ -14,7 +13,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 1.5em;
 }
 
 .topnav a:hover {
@@ -24,6 +23,11 @@
 
 .topnav .icon {
     display: none;
+}
+
+.floatRight{
+    position: absolute;
+    left: 82vw;
 }
 
 @media screen and (max-width: 600px) {
