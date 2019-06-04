@@ -36,7 +36,7 @@
     </section>
     <section id="content3">
         <c:forEach var="booking" items="${bookingList}" varStatus="status">
-            <p>${status.index+1}.  <span>${booking.startDate} : ${booking.endDate}</span></p>
+            <p>${status.index+1}.  ${booking.country.countryName}<span>${booking.startDate} : ${booking.endDate}</span></p>
         </c:forEach>
     </section>
 
