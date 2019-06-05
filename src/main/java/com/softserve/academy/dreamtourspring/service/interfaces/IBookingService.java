@@ -5,7 +5,7 @@ import com.softserve.academy.dreamtourspring.model.Booking;
 import java.util.List;
 
 /**
- * Booking dao implementation
+ * Booking service
  *
  * @author Danylo Lototskyi
  */

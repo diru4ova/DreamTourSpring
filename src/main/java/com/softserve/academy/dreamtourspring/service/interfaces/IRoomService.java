@@ -5,7 +5,7 @@ import com.softserve.academy.dreamtourspring.model.Room;
 import java.util.List;
 
 /**
- * Room dao implementation
+ * Room service
  *
  * @author Danylo Lototskyi
  */
