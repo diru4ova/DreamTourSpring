@@ -25,7 +25,8 @@ public class Country {
     public Country() {
     }
 
-    public Country(String countryName) {
+    public Country(int id, String countryName) {
+        this.countryId = id;
 
         this.countryName = countryName;
     }

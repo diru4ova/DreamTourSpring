@@ -16,9 +16,9 @@ public interface ICityService {
     List<City> getAll();
 
     /**
-     * adds an object of specified type to the table in database.
+     * adds a city to the table in database.
      *
-     * @param city an object to be injected into database table.
+     * @param city City object to be injected into database table.
      */
     void add(City city); // C
 
@@ -26,7 +26,7 @@ public interface ICityService {
      * returns an object by id.
      *
      * @param id of object to be retrieved.
-     * @return an object of specified type from table in database.
+     * @return City from table in database.
      */
     City get(int id); // R
     /**

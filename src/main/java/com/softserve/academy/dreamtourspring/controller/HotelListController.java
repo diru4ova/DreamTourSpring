@@ -1,8 +1,10 @@
 package com.softserve.academy.dreamtourspring.controller;
 
+import com.softserve.academy.dreamtourspring.controller.interceptors.LoggerInterceptor;
 import com.softserve.academy.dreamtourspring.model.Hotel;
 import com.softserve.academy.dreamtourspring.service.interfaces.IHotelService;
 import com.softserve.academy.dreamtourspring.service.interfaces.IRoomService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,18 @@ public class HotelListController {
     private IHotelService hotelService;
     @Autowired
     private IRoomService roomService;
+    
 
+    /**
+     * Method that handles /hotellist url request.
+     *
+     * @param chosenCountry country name passed from main page
+     * @param chosenCity    city name passed from main page
+     * @param startDate     booking start date passed from main page
+     * @param endDate       booking end date passed from main paige
+     * @param model         Model object
+     * @return hotellist.jsp view
+     */
     @PostMapping("/hotellist")
     public String hotelListPage(@RequestParam String chosenCountry, @RequestParam String chosenCity, @RequestParam String startDate,
                                 @RequestParam String endDate, Model model) {

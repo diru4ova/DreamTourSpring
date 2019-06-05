@@ -29,6 +29,12 @@ public class City {
     public City() {
     }
 
+    public City(int id, String cityName, Country country) {
+        this.cityId = id;
+        this.cityName = cityName;
+        this.country = country;
+    }
+
     public City(String cityName) {
         this.cityName = cityName;
     }
