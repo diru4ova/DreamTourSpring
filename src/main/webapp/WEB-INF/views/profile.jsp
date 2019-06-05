@@ -51,7 +51,7 @@
         <ul id="myUL2">
             <c:forEach var="booking" items="${bookingList}" varStatus="status">
                 <li>
-                    <p>${status.index+1}. ${booking.country.countryName}<span>${booking.startDate} : ${booking.endDate}</span>
+                    <p>${status.index+1}. ${booking.country.countryName}, ${booking.city.cityName} , ${booking.hotel.hotelName}<span>${booking.startDate} / ${booking.endDate}</span>
                     </p></li>
             </c:forEach>
         </ul>

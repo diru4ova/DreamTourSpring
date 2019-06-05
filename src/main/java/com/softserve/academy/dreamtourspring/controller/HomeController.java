@@ -44,7 +44,7 @@ public class HomeController {
     }
 
     /**
-     * Handles post request to welcome page
+     * Handles post request to welcome page (for login and registration)
      *
      * @return logical view name
      */
