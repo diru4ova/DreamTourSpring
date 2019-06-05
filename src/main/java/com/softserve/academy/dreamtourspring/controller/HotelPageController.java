@@ -1,17 +1,17 @@
 package com.softserve.academy.dreamtourspring.controller;
 
+import com.softserve.academy.dreamtourspring.controller.interceptors.LoggerInterceptor;
 import com.softserve.academy.dreamtourspring.enums.RoomType;
 import com.softserve.academy.dreamtourspring.model.City;
-import com.softserve.academy.dreamtourspring.model.Hotel;
 import com.softserve.academy.dreamtourspring.model.Room;
 import com.softserve.academy.dreamtourspring.service.interfaces.ICityService;
 import com.softserve.academy.dreamtourspring.service.interfaces.IHotelService;
 import com.softserve.academy.dreamtourspring.service.interfaces.IRoomService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -19,6 +19,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Hotel page controller class
+ *
+ * @author Danylo Lototskyi
+ */
 @Controller
 public class HotelPageController {
 
@@ -31,10 +36,21 @@ public class HotelPageController {
     @Autowired
     private ICityService cityService;
 
+    /**
+     * Handles get request from hotel list page with info about future booking
+     *
+     * @param chosenCity city name where particular hotel is
+     * @param startDate start date of chosen period
+     * @param endDate end date of chosen period
+     * @param idHotel hotel id to show view
+     * @param model model with info for showing it on view
+     * @return hotel page view
+     */
     @GetMapping("/hotel")
-    public String hotelPage(@RequestParam String chosenCity, @RequestParam String chosenCountry,
-                            @RequestParam String startDate, @RequestParam String endDate,
-                            @RequestParam String idHotel, Model model) {
+    public String hotelPage(@RequestParam String chosenCity, @RequestParam String startDate,
+                            @RequestParam String endDate, @RequestParam String idHotel,
+                            Model model) {
+
         int hotelId = Integer.parseInt(idHotel);
 
         List<Room> rooms = roomService.getFreeRoomsInHotel(startDate, endDate, hotelId);
