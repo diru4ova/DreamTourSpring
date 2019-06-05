@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Authentication interceptor class for secure every certain pages by session
+ * Authentication interceptor class for secure certain pages by session
  *
  * @author Rostyk Hlynka
  */
