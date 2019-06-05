@@ -46,7 +46,16 @@
                 <h2>STANDARD</h2>
                 <img width="100%" height="300px" src="${roomStandard.imageUrl}">
                 <h3 class="info">Price: ${roomStandard.price}$ Free now: ${standardCount}</h3>
-                <a href="/booking?hotelId=${hotel.idHotel}&startDate=${startDate}&endDate=${endDate}&cityId=${cityId}&countryId=${countryId}&roomId=${roomStandard.idRoom}">Book</a>
+                <form action="/booking" method="POST" onsubmit="return validateData()">
+                    <input type="hidden" name="countryId" id="countryId" value="${countryId}">
+                    <input type="hidden" name="cityId" id="cityId" value="${cityId}">
+                    <input type="hidden" name="hotelId" id="hotelId" value="${hotel.idHotel}">
+                    <input type="hidden" name="roomId" id="roomId" value="${roomStandard.idRoom}">
+                    <input type="hidden" name="startDate" id="startDate" value="${startDate}">
+                    <input type="hidden" name="endDate" id="endDate" value="${endDate}">
+                    <input type="hidden" id="userId" value="${userId}">
+                    <input id="bookStandard" type="submit" value="Book">
+                </form>
             </div>
         </c:if>
 
@@ -56,12 +65,37 @@
                 <h2>LUXE</h2>
                 <img width="100%" height="300px" src="${roomLuxe.imageUrl}">
                 <h3 class="info">Price: ${roomLuxe.price}$ Free now: ${luxeCount}</h3>
-                    <a href="/booking?hotelId=${hotel.idHotel}&startDate=${startDate}&endDate=${endDate}&cityId=${cityId}&countryId=${countryId}&roomId=${roomLuxe.idRoom}">Book</a>
-
+                <form action="/booking" method="POST">
+                    <input id="bookLuxe" type="submit" value="Book">
+                </form>
             </div>
         </c:if>
     </div>
 </div>
+
+<script>
+    function validateData() {
+
+        var startDate = document.getElementById("startDate").value;
+        var endDate = document.getElementById("endDate").value;
+        var userId = document.getElementById("userId").value;
+
+        console.log("userID = " + userId);
+
+        if((startDate === "" || endDate === "") && userId === "-1") {
+            alert("Please,sign in and choose dates!");
+            window.location.href = '/login';
+            return false;
+        } else if((startDate === "" || endDate === "") && userId !== "-1") {
+            alert("Please,choose dates!");
+            window.location.href = '/';
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+</script>
 
 </body>
 </html>
