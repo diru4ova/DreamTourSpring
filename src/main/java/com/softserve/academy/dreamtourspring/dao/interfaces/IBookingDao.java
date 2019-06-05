@@ -5,7 +5,7 @@ import com.softserve.academy.dreamtourspring.model.Booking;
 import java.util.List;
 
 /**
- * Boooking dao
+ * Booking dao
  *
  * @author Danylo Lototskyi
  */
