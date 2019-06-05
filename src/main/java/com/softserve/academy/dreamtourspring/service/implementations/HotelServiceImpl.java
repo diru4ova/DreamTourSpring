@@ -41,6 +41,12 @@ public class HotelServiceImpl implements IHotelService {
      */
     @Override
     public void add(Hotel hotel) {
+
+        if (hotel.getCity() == null) {
+
+            throw new IllegalArgumentException("hotel is not completed!");
+        }
+
         hotelDao.add(hotel);
     }
 
@@ -61,7 +67,13 @@ public class HotelServiceImpl implements IHotelService {
      * @param hotel instance to be updated
      */
     @Override
-    public void update(Hotel hotel) {
+    public void update(Hotel hotel) throws IllegalArgumentException{
+
+        if (hotel.getCity() == null) {
+
+            throw new IllegalArgumentException("city can not be null!");
+        }
+
         hotelDao.update(hotel);
     }
 

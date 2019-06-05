@@ -38,6 +38,12 @@ public class RoomServiceImpl implements IRoomService {
      */
     @Override
     public void add(Room room) {
+
+        if (room.getHotel() == null) {
+
+            throw new IllegalArgumentException("hotel can not be null!");
+        }
+
         roomDao.add(room);
     }
 
@@ -59,6 +65,12 @@ public class RoomServiceImpl implements IRoomService {
      */
     @Override
     public void update(Room room) {
+
+        if (room.getHotel() == null) {
+
+            throw new IllegalArgumentException("room is not completed!");
+        }
+
         roomDao.update(room);
     }
 

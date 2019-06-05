@@ -38,6 +38,15 @@ public class BookingServiceImpl implements IBookingService {
      */
     @Override
     public void add(Booking booking) {
+
+        if (booking.getCountry() == null || booking.getCity() == null || booking.getHotel() == null
+            || booking.getPerson() == null || booking.getRoom() == null
+            || booking.getVisa() == null || booking.getStartDate() == null
+            || booking.getEndDate() == null) {
+
+            throw new IllegalArgumentException("booking is not completed!");
+        }
+
         bookingDao.add(booking);
     }
 
@@ -59,6 +68,15 @@ public class BookingServiceImpl implements IBookingService {
      */
     @Override
     public void update(Booking booking) {
+
+        if (booking.getCountry() == null || booking.getCity() == null || booking.getHotel() == null
+            || booking.getPerson() == null || booking.getRoom() == null
+            || booking.getVisa() == null || booking.getStartDate() == null
+            || booking.getEndDate() == null) {
+
+            throw new IllegalArgumentException("booking is not completed!");
+        }
+
         bookingDao.update(booking);
     }
 
@@ -74,6 +92,7 @@ public class BookingServiceImpl implements IBookingService {
 
     /**
      * Find all bookings of particular person
+     *
      * @param idPerson person id for finding bookings
      * @return booking list of person
      */
