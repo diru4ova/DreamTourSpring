@@ -1,11 +1,13 @@
 package com.softserve.academy.dreamtourspring.controller;
 
+import com.softserve.academy.dreamtourspring.controller.interceptors.LoggerInterceptor;
 import com.softserve.academy.dreamtourspring.enums.RoomType;
 import com.softserve.academy.dreamtourspring.model.City;
 import com.softserve.academy.dreamtourspring.model.Room;
 import com.softserve.academy.dreamtourspring.service.interfaces.ICityService;
 import com.softserve.academy.dreamtourspring.service.interfaces.IHotelService;
 import com.softserve.academy.dreamtourspring.service.interfaces.IRoomService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +50,7 @@ public class HotelPageController {
     public String hotelPage(@RequestParam String chosenCity, @RequestParam String startDate,
                             @RequestParam String endDate, @RequestParam String idHotel,
                             Model model) {
+
         int hotelId = Integer.parseInt(idHotel);
 
         List<Room> rooms = roomService.getFreeRoomsInHotel(startDate, endDate, hotelId);

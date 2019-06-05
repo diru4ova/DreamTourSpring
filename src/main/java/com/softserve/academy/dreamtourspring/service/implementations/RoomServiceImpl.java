@@ -93,6 +93,7 @@ public class RoomServiceImpl implements IRoomService {
      */
     @Override
     public List<Room> getFreeRoomsInHotel(String startDate, String endDate, int idHotel) {
+
         return roomDao.getFreeRoomsInHotel(startDate, endDate, idHotel);
     }
 }
