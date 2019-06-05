@@ -1,12 +1,10 @@
 package com.softserve.academy.dreamtourspring.controller;
 
-import com.softserve.academy.dreamtourspring.dao.interfaces.IVisaDao;
 import com.softserve.academy.dreamtourspring.model.*;
 import com.softserve.academy.dreamtourspring.service.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -14,8 +12,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.Objects;
 
+/**
+ * Booking controller class
+ *
+ * @author Danylo Lototskyi
+ */
 @Controller
 public class BookingController {
 
@@ -40,14 +42,21 @@ public class BookingController {
     @Autowired
     private IRoomService roomService;
 
+    /**
+     * Handles post requests from hotel page with info of booking for person
+     *
+     * @param startDate start date of chosen period
+     * @param endDate end date of chosen period
+     * @param countryId country id where chosen city is
+     * @param cityId city id where chosen hotel is
+     * @param hotelId hotel id where chosen room is
+     * @param roomId room id of chosen room
+     * @return redirect to profile view
+     */
     @PostMapping("/booking")
-    public String personBook(@RequestParam String startDate,
-                             @RequestParam String endDate,
-                             @RequestParam String countryId,
-                             @RequestParam String cityId,
-                             @RequestParam String hotelId,
-                             @RequestParam String roomId,
-                             Model model) {
+    public String personBook(@RequestParam String startDate, @RequestParam String endDate,
+                             @RequestParam String countryId, @RequestParam String cityId,
+                             @RequestParam String hotelId, @RequestParam String roomId) {
 
         System.out.println(startDate + " - " + endDate);
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
@@ -69,7 +78,7 @@ public class BookingController {
         Room room = roomService.get(Integer.parseInt(roomId));
 
         Booking booking = new Booking(startLocalDate, endLocalDate, country, city,
-                person, hotel, visa, room);
+            person, hotel, visa, room);
 
         bookingService.add(booking);
         return "redirect:/profile";
