@@ -4,10 +4,6 @@ import com.softserve.academy.dreamtourspring.model.Booking;
 import com.softserve.academy.dreamtourspring.model.Country;
 import com.softserve.academy.dreamtourspring.model.Person;
 import com.softserve.academy.dreamtourspring.model.Visa;
-import com.softserve.academy.dreamtourspring.service.implementations.BookingServiceImpl;
-import com.softserve.academy.dreamtourspring.service.implementations.CountryServiceImpl;
-import com.softserve.academy.dreamtourspring.service.implementations.PersonServiceImpl;
-import com.softserve.academy.dreamtourspring.service.implementations.VisaServiceImpl;
 import com.softserve.academy.dreamtourspring.service.interfaces.IBookingService;
 import com.softserve.academy.dreamtourspring.service.interfaces.ICountryService;
 import com.softserve.academy.dreamtourspring.service.interfaces.IPersonService;
@@ -19,9 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

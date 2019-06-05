@@ -13,12 +13,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Hotel dao implementation
+ *
+ * @author Danylo Lototskyi
+ */
 @Repository
 public class HotelDaoImpl implements IHotelDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Find all hotels in city
+     * @param cityName city name for finding hotels
+     * @return list of hotels in this city
+     */
     @Override
     public List<Hotel> getAllHotelsByCityName(String cityName) {
         Query query = sessionFactory.getCurrentSession().createQuery("from Hotel where city ="
@@ -30,6 +40,11 @@ public class HotelDaoImpl implements IHotelDao {
         return hotelList;
     }
 
+    /**
+     * Count tourists in hotel for all time
+     * @param hotelName hotel name for counting tourists
+     * @return count of tourists in this hotel for all time
+     */
     @Override
     public int countTourist(String hotelName) {
         Query query = sessionFactory.getCurrentSession().createQuery("select count(b.idBooking)"
@@ -38,6 +53,7 @@ public class HotelDaoImpl implements IHotelDao {
 
         query.setParameter("hotelName", hotelName);
         List<Long> list = query.getResultList();
+
         if (list == null || list.isEmpty()) {
             return 0;
         }
@@ -45,16 +61,31 @@ public class HotelDaoImpl implements IHotelDao {
         return list.get(0).intValue();
     }
 
+    /**
+     * Count average stay in hotel
+     * @param hotelName hotel name for counting average stay here
+     * @return number of average stay in this hotel
+     */
     @Override
     public List<Booking> averageStay(String hotelName) {
+
         Query query = sessionFactory.getCurrentSession().createQuery(
                 "from Booking b where b.hotel.idHotel"
                         + " = (select h.idHotel from Hotel h where h.hotelName = :hotelName)");
+
         query.setParameter("hotelName", hotelName);
         List<Booking> bookingList = query.getResultList();
+
         return bookingList;
     }
 
+    /**
+     * Find all available hotels in city on chosen period
+     * @param startDate start date of period
+     * @param endDate end date of period
+     * @param cityName city name for finding available hotels
+     * @return list of available hotels in this city
+     */
     @Override
     public List<Hotel> getAllAvailableHotelsInCity(String startDate, String endDate, String cityName) {
 
@@ -74,6 +105,7 @@ public class HotelDaoImpl implements IHotelDao {
             query.setParameter("startDate", LocalDate.parse(startDate));
             query.setParameter("cityName", cityName);
             hotelList = query.getResultList();
+
             return hotelList;
         }
 
@@ -83,38 +115,63 @@ public class HotelDaoImpl implements IHotelDao {
                 + " (select b.room.idRoom from Booking b"
                 + " where not(b.startDate>:endDate or b.endDate<:startDate)))"
                 + " and h.city.cityName=:cityName");
+
         query.setParameter("endDate", LocalDate.parse(endDate));
         query.setParameter("startDate", LocalDate.parse(startDate));
         query.setParameter("cityName", cityName);
         hotelList = query.getResultList();
 
-
-
         return hotelList;
     }
 
+    /**
+     * Find all instances of hotel
+     *
+     * @return list of instances
+     */
     @Override
     public List<Hotel> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Hotel").list();
     }
 
+    /**
+     * Makes given instance persistent
+     *
+     * @param hotel instance to be persisted
+     */
     @Override
     public void add(Hotel hotel) {
         sessionFactory.getCurrentSession().persist(hotel);
     }
 
+    /**
+     * Find hotel by id
+     *
+     * @param id hotel id
+     * @return found hotel
+     */
     @Override
     public Hotel get(int id) {
 
         return sessionFactory.getCurrentSession().get(Hotel.class, id);
     }
 
+    /**
+     * Update given hotel.
+     *
+     * @param hotel instance to be updated
+     */
     @Override
     public void update(Hotel hotel) {
 
         sessionFactory.getCurrentSession().update(hotel);
     }
 
+    /**
+     * Delete hotel by id
+     *
+     * @param id hotel id
+     */
     @Override
     public void delete(int id) {
 
