@@ -1,0 +1,16 @@
+
+.row {
+    background: rgba(255, 255, 255, 0.5);
+}
+.row img{
+    margin-bottom: 15px;
+}
+.list-group {
+    margin-left: 20px;
+}
+.btn{
+    float: right;
+}
+.info{
+    float:left;
+}
