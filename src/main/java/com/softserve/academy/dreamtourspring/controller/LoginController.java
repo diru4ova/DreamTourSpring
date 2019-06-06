@@ -77,4 +77,19 @@ public class LoginController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
+    /**
+     * Handles get request to log out
+     *
+     * @return welcome view
+     */
+    @GetMapping(value = "/logout")
+    public String logout() {
+
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attr.getRequest().getSession(false); // true == allow create
+        session.invalidate();
+
+        return "redirect:/";
+    }
+
 }
